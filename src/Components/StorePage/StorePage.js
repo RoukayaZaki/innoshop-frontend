@@ -4,6 +4,7 @@ import Header from "../Header/Header";
 import Hero_Banner from "./Hero-Banner";
 import NavBar from "./../NavBar/NavBar";
 import Product_area from "./Product-area";
+import Footer from "../Footer/Footer";
 
 
 
@@ -16,6 +17,7 @@ const StorePage = () => {
                 <Hero_Banner />
                 <Product_area />
             </div>
+            <Footer />
         </div>
     );
 }
