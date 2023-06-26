@@ -1,6 +1,6 @@
 import Filters from "./Filters";
 import Products from "./Products";
-
+import "./../../assets/css/product-area.css"
 
 const Product_area = () => {
     return (

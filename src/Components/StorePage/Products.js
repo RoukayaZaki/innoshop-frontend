@@ -1,8 +1,7 @@
+import { Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import axios from 'axios';
-
-
 import { useState, useEffect } from 'react'
 
 
@@ -11,7 +10,6 @@ const Product = (props) => {
     const { product } = props;
 
     const imgStr = 'http://localhost:3001/503.jpg';
-
     return (
         <div class="col-sm">
             <Card style={{ width: '18rem', margin: '10px' }}>

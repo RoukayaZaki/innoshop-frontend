@@ -1,12 +1,18 @@
 import './App.css';
+import ItemPage from './Components/ItemPage/ItemPage';
 import StorePage from "./Components/StorePage/StorePage";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 
 function App() {
   return (
-    <div className="App">
-      <StorePage />
-    </div>
+    <StorePage />
+    // <Router>
+    //   <Routes>
+    //     <Route exact path="/" element={StorePage} />
+    //     <Route path="/product/:id" element={ItemPage} />
+    //   </Routes>
+    // </Router>
   );
 }
 
