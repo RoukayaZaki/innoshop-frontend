@@ -1,74 +1,71 @@
 .signin-page {
-    display: flex;
-  }
-  
-  .signin-left {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .signin-left img {
-    max-width: 80%;
-    height: auto;
-  }
-  
-  .signin-right {
-    flex: 1;
-    padding: 20px;
-  }
-  
-  h2 {
-    text-align: center;
-    margin-bottom: 45px; 
-    font-size: 36px; 
-  }
-  
-  form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  label {
-    font-weight: bold;
-    margin-bottom: 11.25px; 
-    font-size: 27px; 
-  }
-  
-  input[type="email"],
-  input[type="password"] {
-    padding: 18px;
-    margin-bottom: 18px; 
-    border: 2.25px solid #ccc; 
-    border-radius: 11.25px; 
-    font-size: 27px; 
-  }
-  
-  button[type="submit"] {
-    padding: 18px 27px; /* Updated padding */
-    background-color: #4caf50;
-    border: none;
-    color: #fff;
-    font-size: 27px; /* Updated font size */
-    font-weight: bold;
-    border-radius: 11.25px; /* Updated border radius */
-    cursor: pointer;
-  }
-  
-  button[type="submit"]:hover {
-    background-color: #40BA21;
-  }
-  
-  button[type="submit"]:focus {
-    outline: none;
-  }
-  
-  .create-account-text {
-    text-align: center;
-    margin-top: 15px; /* Updated margin top */
-    font-size: 21px; /* Updated font size */
-    color: #888;
-  }
-  
+  display: flex;
+}
+
+.signin-left {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.signin-left img {
+  max-width: 100%;
+  height: auto;
+}
+
+.signin-right {
+  flex: 1;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 100px;
+  font-size: 36px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 20px;
+  font-size: 27px;
+}
+
+input[type="email"],
+input[type="password"] {
+  padding: 18px;
+  margin-bottom: 25px;
+  border: 2.25px solid #ccc;
+  border-radius: 11.25px;
+  font-size: 27px;
+}
+
+button[type="submit"] {
+  padding: 18px 27px;
+  background-color: #4caf50;
+  border: none;
+  color: #fff;
+  font-size: 27px;
+  font-weight: bold;
+  border-radius: 11.25px;
+}
+
+button[type="submit"]:hover {
+  background-color: #40BA21;
+}
+
+button[type="submit"]:focus {
+  outline: none;
+}
+
+.create-account-text {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 21px;
+  color: #888;
+}
