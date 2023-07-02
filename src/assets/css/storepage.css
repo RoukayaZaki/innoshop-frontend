@@ -1,11 +1,11 @@
 .storepage-aligner {
-    padding-left: 100px;
-    padding-right: 100px;
+    padding-left: 5%;
+    padding-right: 5%;
 }
 
 .hero-banner-logo {
-    height: 500px;
-    width: auto;
+    height: auto;
+    width: 100%;
 }
 
 .hero-banner-container {
@@ -14,7 +14,7 @@
 
 
 .product-container {
-    margin: 20px;
-    margin-left: 60px;
-    margin-right: 60px;
+    margin: 2%;
+    margin-left: 5%;
+    margin-right: 5%;
 }
