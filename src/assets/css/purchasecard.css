@@ -1,0 +1,32 @@
+.item-card {
+    background-color: #fff;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+  
+  .quantity-section {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  .quantity-btn {
+    margin: 0 5px;
+    background-color: #fff;
+    border: none;
+    color: black;
+  }
+  
+  .price-section {
+    margin-top: 10px;
+  }
+  
+  .price-section span {
+    display: block;
+    margin-bottom: 5px;
+  }
+  

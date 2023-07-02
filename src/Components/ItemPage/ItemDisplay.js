@@ -1,22 +1,23 @@
 import NavBar from "../NavBar/NavBar";
 import "./../../assets/css/item.css"
 
-const ItemDisplay = (props) => {
-    const { item } = props;
+const ItemDisplay = ({prop}) => {
     const sizes = ["XL", "L", "M"]
+    const  a = prop.data;
+    const  item  = a.product;
     return (
         <div className="item-container">
             <div className="item-image">
-                <img src={item.img} alt={item.title} className="main-image" />
+                <img src={`https://innoshop-backend.onrender.com/${item.varieties[0].images[0]}.jpg`} alt={item.title} className="main-image" />
                 <div className="image-gallery">
-                    {item.gallery.map((photo, index) => (
-                        <img key={index} src={photo} alt={`Gallery ${index}`} />
+                    {item.varieties[0].images.map((photo, index) => (
+                        <img key={index} src={`https://innoshop-backend.onrender.com/${photo}.jpg`} alt={`Gallery ${index}`} />
                     ))}
                 </div>
             </div>
             <div className="item-details">
                 <h2>{item.name}</h2>
-                <p>{item.description}</p>
+                {/* <p>{item.description}</p> */}
                 <p>{item.price}.00 R</p>
                 <button>Purchase</button>
                 <div className="size-checklist">
