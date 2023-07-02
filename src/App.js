@@ -21,6 +21,8 @@ function App() {
       <Routes>
         <Route exact path="/" element={<StorePage />} />
         <Route path="/product/:id" element={<ItemPage />} />
+        <Route path="/signin/" element={<SignInPage />} />
+        <Route path="/signup/" element={<SignUpPage />} />
         <Route path="/checkout/" element={<PurchasePage items={items}/>} />
       </Routes>
     </Router>
