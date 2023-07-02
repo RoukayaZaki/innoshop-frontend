@@ -1,5 +1,7 @@
 import { type } from '@testing-library/user-event/dist/type';
 import './App.css';
+import SignInPage from './Components/SignIn/SignInPage';
+import SignUpPage from './Components/SignIn/SignUpPage';
 import ItemPage from './Components/ItemPage/ItemPage';
 import PurchasePage from './Components/PurchasePage/PurchasePage';
 import StorePage from "./Components/StorePage/StorePage";
