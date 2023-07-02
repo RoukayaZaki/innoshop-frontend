@@ -7,7 +7,6 @@ const Footer = () => {
     return (
         <div>
             <footer className="footer">
-
                 <nav>
                     <ul className="footer-nav">
                         <li><a href="/">Home</a></li>
