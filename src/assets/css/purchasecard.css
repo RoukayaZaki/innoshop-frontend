@@ -3,30 +3,31 @@
     padding: 10px;
     margin-bottom: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
     display: flex;
-    align-items: flex-start;
     justify-content: space-between;
-  }
-  
-  .quantity-section {
-    display: flex;
-    align-items: center;
-    margin-top: 10px;
-  }
-  
-  .quantity-btn {
+}
+
+.quantity-section {
+    /* display: flex; */
+    margin-top: 25px;
+    font-size: 20px;
+    font-family: "Abel", sans-serif;
+    font-weight: normal;
+}
+
+.quantity-btn {
     margin: 0 5px;
     background-color: #fff;
     border: none;
     color: black;
-  }
-  
-  .price-section {
+}
+
+.price-section {
     margin-top: 10px;
-  }
-  
-  .price-section span {
+}
+
+.price-section span {
     display: block;
     margin-bottom: 5px;
-  }
-  
+}
