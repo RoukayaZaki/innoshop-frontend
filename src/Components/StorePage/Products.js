@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import axios from 'axios';
 import { useState, useEffect } from 'react'
-
+import  "./../../assets/css/products.css"
 
 /**
  * @typedef {Object} Variety
@@ -30,14 +30,24 @@ import { useState, useEffect } from 'react'
  */
 const Product = (props) => {
     const { product } = props;
+    const [isZoomed, setIsZoomed] = useState(false);
+    const toggleZoom = () => {
+        setIsZoomed(!isZoomed);
+    };
     const imgStr = 'https://ipts.innopolis.university/api/v1/file/' + product.varieties[0].images[0];
     // const handleLinkClick = () => {
     //     handleClick('View Item');
     //   };
     return (
         <div class="col-sm">
-            <Card style={{ width: '18rem', margin: '10px' }}>
-                <Card.Img variant="top" src={imgStr} />
+            <Card style={{ width: '18rem', margin: '10px', cursor: 'pointer', }}
+             onMouseEnter={toggleZoom}
+             onMouseLeave={toggleZoom}>
+                <Card.Img variant="top" src={imgStr} style={{
+                        transform: isZoomed 
+                            ? 'scale(1.2)' 
+                            : 'scale(1)',
+                        transition: 'transform 0.3s ease',}} />
                 <Card.Body>
                     <Card.Title>{product.name}</Card.Title>
                     <Card.Text>
