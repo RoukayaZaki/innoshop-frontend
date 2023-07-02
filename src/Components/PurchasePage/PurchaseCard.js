@@ -33,7 +33,7 @@ const PurchaseCard = ({ item, onQuantityChange }) => {
             </div>
             <div className="quantity-section">
                 <button onClick={decreaseQuantity} className="quantity-btn">
-                    -
+                    &ndash;
                 </button>
                 <span>{itemQuantity}</span>
                 <button onClick={increaseQuantity} className="quantity-btn">

@@ -1,4 +1,16 @@
 .nav-bar {
     padding-left: 120px;
 }
-  
+
+.nav-bar ul {
+    display: flex;
+}
+
+.nav-bar li::after {
+    content: "/";
+    margin: 0 5px;
+}
+
+.nav-bar li:last-child::after {
+    content: "";
+}
