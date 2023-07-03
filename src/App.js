@@ -6,20 +6,25 @@ import StorePage from "./Components/StorePage/StorePage";
 import SignInPage from './Components/Authentication/SignInPage';
 import SignUpPage from './Components/Authentication/SignUpPage';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useState } from 'react';
 import UserProfilePage from './Components/User/UserProfilePage';
+
+
 
 function App() {
 
-  const item = {
-    id: 1,
-    name: "item1",
-    price: 1800,
-    quantity: 2
+
+  const [items, setItems] = useState([]);
+
+  // Function to add an item to the list
+  const addItemToList = (item) => {
+    setItems([...items, item]);
   };
-  const items = [item, item, item];
+ 
   
+
   return (
-   
+
     <Router>
       <Routes>
         <Route exact path="/" element={<StorePage />} />
