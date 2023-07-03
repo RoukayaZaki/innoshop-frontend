@@ -1,23 +1,16 @@
-// import styles from "./../../assets/css/userprofilepage.module.css";
-import Header from "../Header/Header";
+import "./../../assets/css/userprofilepage.css"
+import PersonalizedHeader from "../Header/PersonalizedHeader";
 import Footer from "../Footer/Footer";
-import UserProfile from "./UserProfile"
-import SignInPage from "../Authentication/SignIn";
+import User from "./UserProfile"
 
-const UserProfilePage = ({ userDetail }) => {
-
-    if(!localStorage.getItem('token')) {
-        return (
-            <SignInPage />
-        );
-    }
-
+const UserProfilePage = () => {
     return (
         <div>
-            <Header />
-            <div>
-                <UserProfile userDetail={userDetail}/>
+            <PersonalizedHeader />
+            <div className="panel-aligner">
+                <User />
             </div>
+
             <Footer />
         </div>
     );

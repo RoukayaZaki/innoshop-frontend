@@ -3,12 +3,12 @@ import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import SignUp from "./SignUp"
 
-const SignUpPage = ({ setToken }) => {
+const SignUpPage = () => {
     return (
         <div>
             <Header />
             <div className={styles.signunpage_aligner}>
-                <SignUp setToken={setToken} /> 
+                <SignUp /> 
             </div>
             <Footer />
         </div>
