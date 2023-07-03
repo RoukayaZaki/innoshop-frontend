@@ -30,7 +30,7 @@ const Filters = () => {
             </ul>
           
             <h3>Price Range</h3>
-            <div class="price-range">
+            <div className="price-range">
               <select name="min-price">
                 <option value="">Min</option>
                 <option value="0">0 R</option>
