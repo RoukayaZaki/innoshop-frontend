@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styles from "./../../assets/css/signin.module.css";
 import { Link } from 'react-router-dom';
 import Image from "./../../assets/innou-logo 3.png";
-import PropTypes from "prop-types";
+
 
 
 async function signinUser(credentials) {
@@ -14,10 +14,25 @@ async function signinUser(credentials) {
         body: JSON.stringify(credentials)
     })
         .then(data => data.json())
-}
+};
 
 
-const SignInPage = ({ setToken }) => {
+const SignInPage = () => {
+
+    const getToken = () => {
+        const tokenString = localStorage.getItem('token');
+        const userToken = JSON.parse(tokenString);
+        return userToken?.token
+    };
+
+    // token for authentication
+    const [token, setToken] = useState(getToken());
+
+    function saveToken(userToken) {
+        localStorage.setItem('token', JSON.stringify(userToken));
+        setToken(userToken.token);
+    };
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -29,13 +44,18 @@ const SignInPage = ({ setToken }) => {
         }
 
         // Add your sign-up logic here, such as API calls or database storage
-        console.log('Sign Up:', email, password);
+        console.log('Sign In:', email, password);
 
         const response = await signinUser({
             email,
             password
         });
-        setToken(response.token);
+
+        saveToken(response.token);
+
+        // setting user details in local storage so that can be accessible on
+        // profile page
+        localStorage.setItem('current_user_id', JSON.stringify(response.id));
 
         // Clear form inputs after successful sign-up
         setEmail('');
@@ -82,7 +102,3 @@ const SignInPage = ({ setToken }) => {
 };
 
 export default SignInPage;
-
-SignInPage.propTypes = {
-    setToken: PropTypes.func.isRequired
-}

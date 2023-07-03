@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styles from "./../../assets/css/signup.module.css";
 import Image from "./../../assets/innou-logo 3.png";
 
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 
 async function signupUser(credentials) {
   return fetch('http://localhost:3001/api/v1/users/signup', {
@@ -16,11 +16,25 @@ async function signupUser(credentials) {
 }
 
 
-const SignUpPage = ({ setToken }) => {
+const SignUpPage = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
+
+  const getToken = () => {
+    const tokenString = localStorage.getItem('token');
+    const userToken = JSON.parse(tokenString);
+    return userToken?.token
+  };
+
+  // token for authentication
+  const [token, setToken] = useState(getToken());
+
+  function saveToken(userToken) {
+    localStorage.setItem('token', JSON.stringify(userToken));
+    setToken(userToken.token);
+  };
 
   const handleSignUp = async (e) => {
     e.preventDefault();
@@ -42,9 +56,11 @@ const SignUpPage = ({ setToken }) => {
       passwordConfirm
     });
 
-    console.log(response);
+    saveToken(response.token);
 
-    setToken(response.token);
+    // setting user details in local storage so that can be accessible on
+    // profile page
+    localStorage.setItem('current_user_id', JSON.stringify(response.data.user._id));
 
     setName('');
     setEmail('');
@@ -104,7 +120,3 @@ const SignUpPage = ({ setToken }) => {
 };
 
 export default SignUpPage;
-
-SignUpPage.propTypes = {
-  setToken: PropTypes.func.isRequired
-}
