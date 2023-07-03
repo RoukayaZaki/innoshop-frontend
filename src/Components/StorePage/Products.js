@@ -35,7 +35,7 @@ const Product = (props) => {
     //     handleClick('View Item');
     //   };
     return (
-        <div class="col-sm">
+        <div className="col-sm">
             <Card style={{ width: '18rem', margin: '10px' }}>
                 <Card.Img variant="top" src={imgStr} />
                 <Card.Body>
@@ -73,8 +73,8 @@ const Products = () => {
     console.log(products);
 
     return (
-        <div class="container">
-            <div class="row justify-content-start">
+        <div className="container">
+            <div className="row justify-content-start">
                 {products.map(product => <Product product={product} />)}
             </div>
         </div>

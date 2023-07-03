@@ -1,6 +1,7 @@
 import logo from './../../assets/innou-logo 1.png';
 import "./../../assets/css/header.css"
 
+import { Link } from 'react-router-dom';
 
 const Header = () => {
     return (
@@ -14,7 +15,7 @@ const Header = () => {
                         <button type="submitsearch">Search</button>
                         <input type="search" placeholder="Search..." />
                     </form>
-                    <button className="sign-in-button">Sign In</button>
+                    <Link to="/signin" className="sign-in-button">Sign In</Link>
                 </div>
             </div>
         </div>
