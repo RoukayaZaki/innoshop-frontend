@@ -5,9 +5,7 @@ const ItemDisplay = ({ prop }) => {
     const sizes = ["XL", "L", "M"]
     const a = prop.data;
     const item = a.product;
-    const handlePurchase = (itemsent) => {
-        addItemToList(itemsent);
-    };
+   
     return (
         <div className="item-container">
             <div className="item-image">
@@ -22,7 +20,7 @@ const ItemDisplay = ({ prop }) => {
                 <h2>{item.name}</h2>
                 {/* <p>{item.description}</p> */}
                 <p>{item.price}.00 R</p>
-                <button>{() => handlePurchase({item})}Purchase</button>
+                <button>Purchase</button>
                 <div className="size-checklist">
                     <h3>Size</h3>
                     {sizes.map((size, index) => (
