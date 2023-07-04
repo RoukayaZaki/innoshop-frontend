@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import './../../assets/css/purchasecard.css';
 
 const PurchaseCard = ({ item, onQuantityChange }) => {
-    console.log(item);
     const [itemQuantity, setItemQuantity] = useState(item.quantity);
 
     const decreaseQuantity = () => {
@@ -16,11 +15,36 @@ const PurchaseCard = ({ item, onQuantityChange }) => {
         setItemQuantity(itemQuantity + 1);
         onQuantityChange(item._id, itemQuantity + 1); // Notify parent component
     };
+
     const total = item.price * itemQuantity;
 
-    // if (itemQuantity === 0) {
-    //     return null; // Return null to remove the card from the UI
-    // }
+    const handleDeleteItem = () => {
+        // Perform the delete item action here
+        // Call a function to delete the item or implement your logic
+        console.log('Item deleted:', item.name);
+        return null;
+    };
+
+    const handleConfirmDelete = () => {
+        if (itemQuantity === 1) {
+            // If the quantity is 1, show the warning and confirm delete
+            const result = window.confirm(`Deleting ${item.name}. Are you sure?`);
+
+            if (result) {
+                setItemQuantity(0);
+            } else {
+                // If the user cancels the delete action, reset the quantity to 1
+                setItemQuantity(1);
+            }
+        } else {
+            // If the quantity is not 1, simply decrease the quantity
+            decreaseQuantity();
+        }
+    };
+
+    if (itemQuantity === 0) {
+        return null; // Return null to remove the card from the UI
+    }
 
     return (
         <div className="item-card">
@@ -33,7 +57,7 @@ const PurchaseCard = ({ item, onQuantityChange }) => {
                 {/* <p>Total: {total}</p> */}
             </div>
             <div className="quantity-section">
-                <button onClick={decreaseQuantity} className="quantity-btn">
+                <button onClick={handleConfirmDelete} className="quantity-btn">
                     &ndash;
                 </button>
                 <span>{itemQuantity}</span>
@@ -41,7 +65,6 @@ const PurchaseCard = ({ item, onQuantityChange }) => {
                     +
                 </button>
             </div>
-
         </div>
     );
 };
