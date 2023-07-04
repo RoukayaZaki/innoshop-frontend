@@ -1,34 +1,50 @@
 import {useEffect, useState} from 'react';
 import "./../../assets/css/userprofile.css";
 import profilePicture from './../../assets/innou-logo 3.png';
-import Products from "../StorePage/Products";
+// import Products from "../StorePage/Products";
 import axios from 'axios';
 
 const UserProfilePage = () => {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
-  useEffect(() => {
-    fetchUser();
-  }, []);
-  const fetchUser = async () => {
-    try {
-      const response = await axios.get('/api/user'); // Replace with your backend endpoint
-      setUser(response.data);
-      setLoading(false);
-    } catch (error) {
-      setError(error.message);
-      setLoading(false);
-    }
-  };
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  const [user, setUserData] = useState({});
+  const tokenString = localStorage.getItem('token');
+  const user_id = localStorage.getItem('current_user_id');
+  const headers = {'Authorization': 'Bearer ' + tokenString};
 
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
+  const url = String('http://localhost:3001/api/v1/users/').concat(user_id);
+
+  fetch(url, { headers })
+      .then(response => response.json())
+      .then(data => {
+        setUserData(data.data.user);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  // const [user, setUser] = useState(null);
+  // const [loading, setLoading] = useState(true);
+  // const [error, setError] = useState(null);
+
+  // useEffect(() => {
+  //   fetchUser();
+  // }, []);
+  // const fetchUser = async () => {
+  //   try {
+  //     const response = await axios.get('/api/user');
+  //     setUser(response.data);
+  //     setLoading(false);
+  //   } catch (error) {
+  //     setError(error.message);
+  //     setLoading(false);
+  //   }
+  // };
+  // if (loading) {
+  //   return <div>Loading...</div>;
+  // }
+
+  // if (error) {
+  //   return <div>Error: {error}</div>;
+  // }
 
 
   return (
@@ -47,12 +63,12 @@ const UserProfilePage = () => {
           </ul>
         </div>
         </div>
-        <div className="panel whats-new">
+        {/* <div className="panel whats-new">
           <h2>What's New</h2>
           <div className="scrollable-content">
             <Products />
           </div>
-        </div>
+        </div> */}
       </div>
       <div className="right-panel">
         <div className="panel user-info">
@@ -61,13 +77,13 @@ const UserProfilePage = () => {
           </div>
           <h2>{user.name}</h2>
           <p>Email: {user.email}</p>
-          <p>Phone: {user.phone}</p>
-          <p>Address: {user.address}</p>
+          {/* <p>Phone: {user.phone}</p>
+          <p>Address: {user.address}</p> */}
           <button className="edit-profile-button">Edit Profile</button>
         </div>
       </div>
     </div>
   );
-};
+}
 
 export default UserProfilePage;

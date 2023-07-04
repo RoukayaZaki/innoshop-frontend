@@ -10,7 +10,6 @@ const UserProfilePage = () => {
             <div className="panel-aligner">
                 <User />
             </div>
-
             <Footer />
         </div>
     );

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from "./../../assets/css/signin.module.css";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Image from "./../../assets/innou-logo 3.png";
 
 
@@ -21,6 +21,9 @@ const SignIn = () => {
 
     const getToken = () => {
         const tokenString = localStorage.getItem('token');
+        if (tokenString === undefined) {
+            return '';
+        }
         const userToken = JSON.parse(tokenString);
         return userToken?.token
     };
@@ -29,13 +32,17 @@ const SignIn = () => {
     const [token, setToken] = useState(getToken());
 
     function saveToken(userToken) {
-        localStorage.setItem('token', JSON.stringify(userToken));
+        localStorage.setItem('token', userToken);
         setToken(userToken.token);
     };
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
+    function handleClick() {
+        navigate("/userprofile");
+    }
     const handleSignIn = async (e) => {
         e.preventDefault();
         if (!email || !password) {
@@ -51,15 +58,23 @@ const SignIn = () => {
             password
         });
 
-        saveToken(response.token);
+        if (response.status === 'success') {
+            saveToken(response.token);
 
-        // setting user details in local storage so that can be accessible on
-        // profile page
-        localStorage.setItem('current_user_id', JSON.stringify(response.id));
+            // setting user details in local storage so that can be accessible on
+            // profile page
+            localStorage.setItem('current_user_id', response.id);
+            handleClick();
+        }
+        else {
+            window.alert(response.message);
+        }
 
         // Clear form inputs after successful sign-up
+
         setEmail('');
         setPassword('');
+        
     };
 
     console.log(styles);
@@ -89,8 +104,9 @@ const SignIn = () => {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
-
-                    <button className={styles.button} type="submit">Sign In</button>
+                    {/* <Link to="/userprofile"> */}
+                        <button className={styles.button} type="submit">Sign In</button>
+                    {/* </Link> */}
                 </form>
                 <p className={styles.create_account_text}>
                     Don't have an account yet?{' '}

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from "./../../assets/css/signup.module.css";
 import Image from "./../../assets/innou-logo 3.png";
-
+import { Link, useNavigate } from 'react-router-dom';
 // import PropTypes from "prop-types";
 
 async function signupUser(credentials) {
@@ -21,10 +21,13 @@ const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
-
+  const navigate = useNavigate();
   const getToken = () => {
     const tokenString = localStorage.getItem('token');
-    const userToken = JSON.parse(tokenString);
+    if (tokenString === undefined) {
+      return '';
+    }
+    const userToken = tokenString;
     return userToken?.token
   };
 
@@ -32,8 +35,8 @@ const SignUp = () => {
   const [token, setToken] = useState(getToken());
 
   function saveToken(userToken) {
-    localStorage.setItem('token', JSON.stringify(userToken));
-    setToken(userToken.token);
+    localStorage.setItem('token', userToken);
+    setToken(userToken);
   };
 
   const handleSignUp = async (e) => {
@@ -56,11 +59,17 @@ const SignUp = () => {
       passwordConfirm
     });
 
-    saveToken(response.token);
+    if (response.status === 'success') {
+      saveToken(response.token);
 
-    // setting user details in local storage so that can be accessible on
-    // profile page
-    localStorage.setItem('current_user_id', JSON.stringify(response.data.user._id));
+      // setting user details in local storage so that can be accessible on
+      // profile page
+      localStorage.setItem('current_user_id', response.id);
+      navigate('/userprofile')
+    }
+    else {
+      window.alert(response.message);
+    }
 
     setName('');
     setEmail('');
@@ -111,8 +120,9 @@ const SignUp = () => {
             value={passwordConfirm}
             onChange={(e) => setPasswordConfirm(e.target.value)}
           />
-
-          <button type="submit">Sign Up</button>
+          <Link to="/userprofile">
+            <button type="submit">Sign Up</button>
+          </Link>
         </form>
       </div>
     </div>
