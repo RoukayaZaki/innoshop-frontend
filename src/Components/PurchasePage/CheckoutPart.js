@@ -23,6 +23,7 @@ const CheckoutPart = ({ items }) => {
             }
             return item;
           });
+          localStorage.setItem('items', JSON.stringify(updatedItemList));
           return updatedItemList;
         });
     };

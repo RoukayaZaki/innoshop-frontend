@@ -9,6 +9,10 @@ const PurchaseCard = ({ item, onQuantityChange }) => {
             setItemQuantity(itemQuantity - 1);
             onQuantityChange(item._id, itemQuantity - 1); // Notify parent component
         }
+        if(itemQuantity == 0) {
+            onQuantityChange(item._id, itemQuantity);
+            return null;
+        }
     };
 
     const increaseQuantity = () => {
@@ -18,13 +22,7 @@ const PurchaseCard = ({ item, onQuantityChange }) => {
 
     const total = item.price * itemQuantity;
 
-    const handleDeleteItem = () => {
-        // Perform the delete item action here
-        // Call a function to delete the item or implement your logic
-        console.log('Item deleted:', item.name);
-        return null;
-    };
-
+    
     const handleConfirmDelete = () => {
         if (itemQuantity === 1) {
             // If the quantity is 1, show the warning and confirm delete
