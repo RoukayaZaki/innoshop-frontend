@@ -16,7 +16,7 @@ async function signupUser(credentials) {
 }
 
 
-const SignUpPage = () => {
+const SignUp = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -119,4 +119,4 @@ const SignUpPage = () => {
   );
 };
 
-export default SignUpPage;
+export default SignUp;

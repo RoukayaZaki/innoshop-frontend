@@ -4,6 +4,7 @@ import Footer from "../Footer/Footer";
 import CheckoutPart from "./CheckoutPart";
 
 const PurchasePage = ({items}) => {
+    
     return (
         <div>
             <Header />

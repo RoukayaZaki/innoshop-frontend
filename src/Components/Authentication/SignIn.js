@@ -17,7 +17,7 @@ async function signinUser(credentials) {
 };
 
 
-const SignInPage = () => {
+const SignIn = () => {
 
     const getToken = () => {
         const tokenString = localStorage.getItem('token');
@@ -101,4 +101,4 @@ const SignInPage = () => {
     );
 };
 
-export default SignInPage;
+export default SignIn;

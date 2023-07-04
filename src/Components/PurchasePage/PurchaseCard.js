@@ -2,24 +2,25 @@ import React, { useState } from 'react';
 import './../../assets/css/purchasecard.css';
 
 const PurchaseCard = ({ item, onQuantityChange }) => {
+    console.log(item);
     const [itemQuantity, setItemQuantity] = useState(item.quantity);
 
-  const decreaseQuantity = () => {
-    if (itemQuantity > 0) {
-      setItemQuantity(itemQuantity - 1);
-      onQuantityChange(item.id, itemQuantity - 1); // Notify parent component
-    }
-  };
+    const decreaseQuantity = () => {
+        if (itemQuantity > 0) {
+            setItemQuantity(itemQuantity - 1);
+            onQuantityChange(item._id, itemQuantity - 1); // Notify parent component
+        }
+    };
 
-  const increaseQuantity = () => {
-    setItemQuantity(itemQuantity + 1);
-    onQuantityChange(item.id, itemQuantity + 1); // Notify parent component
-  };
+    const increaseQuantity = () => {
+        setItemQuantity(itemQuantity + 1);
+        onQuantityChange(item._id, itemQuantity + 1); // Notify parent component
+    };
     const total = item.price * itemQuantity;
 
-    if (itemQuantity === 0) {
-        return null; // Return null to remove the card from the UI
-    }
+    // if (itemQuantity === 0) {
+    //     return null; // Return null to remove the card from the UI
+    // }
 
     return (
         <div className="item-card">

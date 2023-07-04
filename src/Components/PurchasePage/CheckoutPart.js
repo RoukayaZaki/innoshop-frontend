@@ -1,19 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PurchaseCard from './PurchaseCard';
 import Total from './Total';
 import './../../assets/css/checkoutpart.css';
 
 const CheckoutPart = ({ items }) => {
-    const [updatedItems, setUpdatedItems] = useState(items);
+    console.log("!!!!!HERE!!!!!")
+    const [updatedItems, setUpdatedItems] = useState([]);
 
+    useEffect(() => {
+      setUpdatedItems(items);
+    }, [items]);
+    console.log(items)
+    
     const handleQuantityChange = (itemId, newQuantity) => {
-        const updatedItem = updatedItems.find((item) => item.id === itemId);
-        updatedItem.quantity = newQuantity;
-
-        const updatedItemList = [...updatedItems];
-        setUpdatedItems(updatedItemList);
+        setUpdatedItems((prevItems) => {
+          const updatedItemList = prevItems.map((item) => {
+            if (item._id === itemId) {
+              return {
+                ...item,
+                quantity: newQuantity,
+              };
+            }
+            return item;
+          });
+          return updatedItemList;
+        });
     };
-
+    console.log(items);
+    console.log(updatedItems);
+      
     const calculateTotal = () => {
         let total = 0;
         updatedItems.forEach((item) => {
@@ -21,14 +36,16 @@ const CheckoutPart = ({ items }) => {
         });
         return total;
     };
+    
 
     return (
         <div className="checkout-page">
             <div className="items-section">
-                {updatedItems.map((item) => (
+                {items.map((item) => (
+                    
                     <PurchaseCard
                         item={item}
-                        key={item.id}
+                        key={item._id}
                         onQuantityChange={handleQuantityChange}
                     />
                 ))}
