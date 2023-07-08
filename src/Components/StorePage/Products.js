@@ -30,6 +30,7 @@ import { useState, useEffect } from 'react'
  */
 const Product = (props) => {
     const { product } = props;
+    console.log("item ", product);
     const imgStr = 'https://ipts.innopolis.university/api/v1/file/' + product.varieties[0].images[0];
     // const handleLinkClick = () => {
     //     handleClick('View Item');
