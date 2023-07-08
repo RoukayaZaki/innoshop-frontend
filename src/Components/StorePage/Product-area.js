@@ -2,7 +2,7 @@ import Filters from "./Filters";
 import Products from "./Products";
 import "./../../assets/css/product-area.css"
 
-const Product_area = () => {
+const Product_area = ({ products }) => {
     return (
         <div className="product-container" styles={{ "margin": "0px;" }}>
             <div className="row">
@@ -11,7 +11,7 @@ const Product_area = () => {
                 </div>
                 <div className="col-9">
                     <h3>All Items</h3>
-                    <Products />
+                    <Products products={products}/>
                 </div>
             </div>
         </div>

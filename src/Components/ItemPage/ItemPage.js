@@ -4,6 +4,7 @@ import NavBar from "./../NavBar/NavBar";
 import Footer from "../Footer/Footer";
 import ItemDisplay from "./ItemDisplay";
 import { useParams } from 'react-router-dom';
+import PersonalizedHeader from '../Header/PersonalizedHeader';
 
 const ItemPage = () => {
     const { id } = useParams();
@@ -25,18 +26,36 @@ const ItemPage = () => {
         fetchData();
     }, [id]);
     console.log(item);
-    return (
-        <div>
-            <Header />
-            <NavBar />
-            {item ? (
-                <ItemDisplay prop={item} />
-            ) : (
-                <p>Loading item...</p>
-            )}
-            <Footer />
-        </div>
-    );
+    const token = localStorage.getItem('token');
+    if (token === null) {
+        return (
+            <div>
+                <Header />
+                <NavBar />
+                {item ? (
+                    <ItemDisplay prop={item} />
+                ) : (
+                    <p>Loading item...</p>
+                )}
+                <Footer />
+            </div>
+        );
+    }
+    else {
+        return (
+            <div>
+                <PersonalizedHeader />
+                <NavBar />
+                {item ? (
+                    <ItemDisplay prop={item} />
+                ) : (
+                    <p>Loading item...</p>
+                )}
+                <Footer />
+            </div>
+        );
+    }
+
 }
 
 export default ItemPage;

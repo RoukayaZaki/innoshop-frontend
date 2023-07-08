@@ -53,22 +53,7 @@ const Product = (props) => {
 }
 
 
-const Products = () => {
-
-    const [products, setProducts] = useState([])
-    const [newProduct, setNewProduct] = useState('')
-    const [showAll, setShowAll] = useState(true)
-
-
-    useEffect(() => {
-        console.log('Products loading....')
-        axios
-            .get('http://localhost:3001/api/v1/products?limit=12')
-            .then(response => {
-                const receivedProducts = response.data.data.products
-                setProducts(receivedProducts);
-            })
-    }, []);
+const Products = ({ products }) => {
 
     console.log(products);
 

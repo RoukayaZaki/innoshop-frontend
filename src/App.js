@@ -8,15 +8,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import UserProfilePage from './Components/User/UserProfilePage';
 
 function App() {
-  const [items, setItems] = useState([]);
-
-  useEffect(() => {
-    // Retrieve items from local storage
-    const storedItems = localStorage.getItem('items');
-    if (storedItems) {
-      setItems(JSON.parse(storedItems));
-    }
-  }, []);
+ 
   
   return (
     <Router>
@@ -25,7 +17,7 @@ function App() {
         <Route path="/product/:id" element={<ItemPage />} />
         <Route path="/signin/" element={<SignInPage />} />
         <Route path="/signup/" element={<SignUpPage />} />
-        <Route path="/checkout/" element={<PurchasePage items={items} />}
+        <Route path="/checkout/" element={<PurchasePage />}
         />
         <Route path="/userprofile/" element={<UserProfilePage />} />
       </Routes>
