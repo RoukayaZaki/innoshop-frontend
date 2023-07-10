@@ -12,7 +12,7 @@ const CheckoutPart = ({ items, filtered }) => {
 
   const handleQuantityChange = (itemId, newQuantity) => {
     setUpdatedItems((prevItems) => {
-      const updatedItemList = prevItems.map((item) => {
+      let updatedItemList = prevItems.map((item) => {
         if (item._id === itemId) {
           return {
             ...item,
@@ -21,6 +21,9 @@ const CheckoutPart = ({ items, filtered }) => {
         }
         return item;
       });
+      if(newQuantity == 0) {
+        updatedItemList = updatedItemList.filter((item) => itemId != item._id);
+      }
       localStorage.setItem('items', JSON.stringify(updatedItemList));
       return updatedItemList;
     });

@@ -1,50 +1,29 @@
 import {useEffect, useState} from 'react';
 import "./../../assets/css/userprofile.css";
 import profilePicture from './../../assets/innou-logo 3.png';
-// import Products from "../StorePage/Products";
-import axios from 'axios';
+
 
 const UserProfilePage = () => {
 
   const [user, setUserData] = useState({});
   const tokenString = localStorage.getItem('token');
   const user_id = localStorage.getItem('current_user_id');
-  const headers = {'Authorization': 'Bearer ' + tokenString};
+  const headers = { 'Authorization': 'Bearer ' + tokenString };
 
-  const url = String('http://localhost:3001/api/v1/users/').concat(user_id);
+  useEffect(() => {
+    const url = `http://localhost:3001/api/v1/users/${user_id}`;
 
-  fetch(url, { headers })
+    fetch(url, { headers })
       .then(response => response.json())
       .then(data => {
         setUserData(data.data.user);
+        localStorage.setItem('role', data.data.user.role);
+        console.log(data.data.user);
       })
       .catch(error => {
         console.error('Error:', error);
       });
-  // const [user, setUser] = useState(null);
-  // const [loading, setLoading] = useState(true);
-  // const [error, setError] = useState(null);
-
-  // useEffect(() => {
-  //   fetchUser();
-  // }, []);
-  // const fetchUser = async () => {
-  //   try {
-  //     const response = await axios.get('/api/user');
-  //     setUser(response.data);
-  //     setLoading(false);
-  //   } catch (error) {
-  //     setError(error.message);
-  //     setLoading(false);
-  //   }
-  // };
-  // if (loading) {
-  //   return <div>Loading...</div>;
-  // }
-
-  // if (error) {
-  //   return <div>Error: {error}</div>;
-  // }
+  }, []);
 
 
   return (

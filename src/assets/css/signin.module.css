@@ -45,7 +45,7 @@
   font-size: 27px;
 }
 
-.button[type="submit"] {
+.button[type="submituser"] {
   padding: 18px 27px;
   background-color: #4caf50;
   border: none;
@@ -55,11 +55,11 @@
   border-radius: 11.25px;
 }
 
-.button[type="submit"]:hover {
+.button[type="submituser"]:hover {
   background-color: #40BA21;
 }
 
-.button[type="submit"]:focus {
+.button[type="submituser"]:focus {
   outline: none;
 }
 

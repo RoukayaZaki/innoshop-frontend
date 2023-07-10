@@ -105,7 +105,7 @@ const SignIn = () => {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                     {/* <Link to="/userprofile"> */}
-                        <button className={styles.button} type="submit">Sign In</button>
+                        <button className={styles.button} type="submituser">Sign In</button>
                     {/* </Link> */}
                 </form>
                 <p className={styles.create_account_text}>

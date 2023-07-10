@@ -2,8 +2,7 @@ import { Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import axios from 'axios';
-import { useState, useEffect } from 'react'
-
+import { useState, useEffect } from 'react';
 
 /**
  * @typedef {Object} Variety
@@ -30,11 +29,25 @@ import { useState, useEffect } from 'react'
  */
 const Product = (props) => {
     const { product } = props;
-    console.log("item ", product);
     const imgStr = 'https://ipts.innopolis.university/api/v1/file/' + product.varieties[0].images[0];
-    // const handleLinkClick = () => {
-    //     handleClick('View Item');
-    //   };
+
+    const [isAdmin, setIsAdmin] = useState(false);
+
+    useEffect(() => {
+        const role = localStorage.getItem('role');
+        setIsAdmin(role === 'admin');
+    }, []);
+
+    const handleDelete = async () => {
+        try {
+            // Make the delete request using axios or your preferred HTTP library
+            await axios.delete(`/api/products/${product.id}`);
+            // Perform any additional actions after successful deletion
+        } catch (error) {
+            // Handle error cases
+        }
+    };
+
     return (
         <div className="col-sm">
             <Card style={{ width: '18rem', margin: '10px' }}>
@@ -44,27 +57,30 @@ const Product = (props) => {
                     <Card.Text>
                         Price: {product.price}
                     </Card.Text>
-                    <Link to={'/product/' + product._id.toString()} >
-                        <Button variant="primary" >View it!</Button>
+                    <Link to={'/product/' + product._id.toString()}>
+                        <Button variant="primary">View it!</Button>
                     </Link>
+                    {isAdmin && (
+                        <Button variant="danger" onClick={handleDelete}>
+                            Delete
+                        </Button>
+                    )}
                 </Card.Body>
             </Card>
         </div>
     );
-}
-
+};
 
 const Products = ({ products }) => {
-
-    console.log(products);
-
     return (
         <div className="container">
             <div className="row justify-content-start">
-                {products.map(product => <Product product={product} />)}
+                {products.map((product) => (
+                    <Product key={product.id} product={product} />
+                ))}
             </div>
         </div>
     );
-}
+};
 
 export default Products;

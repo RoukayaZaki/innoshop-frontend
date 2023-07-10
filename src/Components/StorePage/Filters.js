@@ -1,10 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import Form from 'react-bootstrap/Form';
 import "./../../assets/css/filters.css";
 
 const Filters = ({ onSort }) => {
   const [sortOption, setSortOption] = useState('');
   const [minPrice, setMinPrice] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
+  const [showModal, setShowModal] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    const role = localStorage.getItem('role');
+    setIsAdmin(role === 'admin');
+  }, []);
 
   const handleSortOptionChange = (event) => {
     setSortOption(event.target.value);
@@ -20,6 +30,90 @@ const Filters = ({ onSort }) => {
     setMaxPrice(event.target.value);
     onSort(sortOption, minPrice, event.target.value);
   };
+
+  const handleAdminButtonClick = () => {
+    setShowModal(true);
+  };
+
+  const handleModalClose = () => {
+    setShowModal(false);
+  };
+
+  const MyVerticallyCenteredModal = (props) => {
+    const [name, setName] = useState('');
+    const [image, setImage] = useState(null);
+    const [price, setPrice] = useState('');
+
+    const handleNameChange = (event) => {
+      setName(event.target.value);
+    };
+
+    const handleImageChange = (event) => {
+      const file = event.target.files[0];
+      setImage(file);
+    };
+
+    const handlePriceChange = (event) => {
+      setPrice(event.target.value);
+    };
+
+    const handleSubmit = (event) => {
+      event.preventDefault();
+      // Handle form submission here (e.g., send data to the server)
+      // You can access the name, image, and price values in the respective state variables (name, image, price)
+      // Reset the form or close the modal after submission
+      setName('');
+      setImage(null);
+      setPrice('');
+      props.onHide();
+    };
+
+    return (
+      <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">Add Item</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form onSubmit={handleSubmit}>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Name:</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Enter name"
+                value={name}
+                onChange={handleNameChange}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput2">
+              <Form.Label>Image:</Form.Label>
+              <Form.Control
+                type="file"
+                onChange={handleImageChange}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput3">
+              <Form.Label>Price:</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Enter price"
+                value={price}
+                onChange={handlePriceChange}
+              />
+            </Form.Group>
+            <Button variant="primary" type="submititem">
+              Save Changes
+            </Button>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={props.onHide}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    );
+  };
+
 
   return (
     <div className="sidebar">
@@ -93,6 +187,16 @@ const Filters = ({ onSort }) => {
         </select>
       </div>
       <br />
+      <h2>Admin</h2>
+      {isAdmin && (
+        <button onClick={handleAdminButtonClick} className='sign-in-button'>Add item</button>
+      )}
+      {showModal && (
+        <MyVerticallyCenteredModal
+          show={showModal}
+          onHide={handleModalClose}
+        />
+      )}
     </div>
   );
 };

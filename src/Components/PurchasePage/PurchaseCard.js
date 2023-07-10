@@ -6,7 +6,7 @@ const PurchaseCard = ({ item, onQuantityChange }) => {
 
     const decreaseQuantity = () => {
         if (itemQuantity > 0) {
-            setItemQuantity(itemQuantity - 1);
+            setItemQuantity(value => value - 1);
             onQuantityChange(item._id, itemQuantity - 1); // Notify parent component
         }
         if(itemQuantity == 0) {
@@ -16,7 +16,7 @@ const PurchaseCard = ({ item, onQuantityChange }) => {
     };
 
     const increaseQuantity = () => {
-        setItemQuantity(itemQuantity + 1);
+        setItemQuantity(value => value + 1);
         onQuantityChange(item._id, itemQuantity + 1); // Notify parent component
     };
 
@@ -30,13 +30,17 @@ const PurchaseCard = ({ item, onQuantityChange }) => {
 
             if (result) {
                 setItemQuantity(0);
+                onQuantityChange(item._id, 0);
+
             } else {
                 // If the user cancels the delete action, reset the quantity to 1
                 setItemQuantity(1);
+                onQuantityChange(item._id, 1);
             }
         } else {
             // If the quantity is not 1, simply decrease the quantity
             decreaseQuantity();
+            onQuantityChange(item._id, itemQuantity - 1);
         }
     };
 
