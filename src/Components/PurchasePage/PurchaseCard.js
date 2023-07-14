@@ -9,7 +9,7 @@ const PurchaseCard = ({ item, onQuantityChange }) => {
             setItemQuantity(value => value - 1);
             onQuantityChange(item._id, itemQuantity - 1); // Notify parent component
         }
-        if(itemQuantity == 0) {
+        if (itemQuantity == 0) {
             onQuantityChange(item._id, itemQuantity);
             return null;
         }
@@ -22,7 +22,7 @@ const PurchaseCard = ({ item, onQuantityChange }) => {
 
     const total = item.price * itemQuantity;
 
-    
+
     const handleConfirmDelete = () => {
         if (itemQuantity === 1) {
             // If the quantity is 1, show the warning and confirm delete
@@ -50,13 +50,19 @@ const PurchaseCard = ({ item, onQuantityChange }) => {
 
     return (
         <div className="item-card">
-            {/* <img src={`https://innoshop-backend.onrender.com/${item.id}.jpg`} alt={item.name} className='item-image' /> */}
-            <div className="price-section">
-                <h3>
-                    {item.name}
-                </h3>
-                <p>Price: {item.price}</p>
-                {/* <p>Total: {total}</p> */}
+            <div className='item-details-section'>
+
+                <div className="image-gallery">
+
+                    <img src={`https://innoshop-backend.onrender.com/${item.varieties[0].images[0]}.jpg`} alt={item.name} />
+                </div>
+                <div className="price-section">
+                    <h3>
+                        {item.name}
+                    </h3>
+                    <p>Price: {item.price}</p>
+                    {/* <p>Total: {total}</p> */}
+                </div>
             </div>
             <div className="quantity-section">
                 <button onClick={handleConfirmDelete} className="quantity-btn">

@@ -28,6 +28,7 @@ const ItemDisplay = ({ prop }) => {
 
             items.push(itemWithQuantity);
             console.log('Item added to the list with quantity 1!');
+            console.log(itemWithQuantity);
         }
 
         localStorage.setItem('items', JSON.stringify(items));
@@ -72,7 +73,7 @@ const ItemDisplay = ({ prop }) => {
 
         if (existingItemIndex !== -1) {
             items[existingItemIndex].quantity += 1;
-                setQuantity(items[existingItemIndex].quantity);
+            setQuantity(items[existingItemIndex].quantity);
             console.log('Quantity increased by 1!');
         }
 
@@ -101,9 +102,12 @@ const ItemDisplay = ({ prop }) => {
             <div className="item-image">
                 <img src={`https://innoshop-backend.onrender.com/${item.varieties[0].images[0]}.jpg`} alt={item.title} className="main-image" />
                 <div className="image-gallery">
-                    {item.varieties[0].images.map((photo, index) => (
-                        <img key={index} src={`https://innoshop-backend.onrender.com/${photo}.jpg`} alt={`Gallery ${index}`} />
-                    ))}
+                    <img key={item.varieties[0].images[0]} src={`https://innoshop-backend.onrender.com/${item.varieties[0].images[0]}.jpg`} alt={`Gallery ${item.varieties[0].images[0]}`} />
+                    {/* {item.varieties.map((variety, index) => (
+                        // variety.images.map((photo, index) => (
+                        // ))
+                    ))} */}
+
                 </div>
             </div>
             <div className="item-details">
@@ -118,15 +122,28 @@ const ItemDisplay = ({ prop }) => {
                 ) : (
                     <button onClick={handlePurchase}>Purchase</button>
                 )}
-                {/* <div className="size-checklist">
-          <h3>Size</h3>
-          {sizes.map((size, index) => (
-            <label key={index}>
-              <input type="checkbox" name="size" value={size} />
-              {size}
-            </label>
-          ))}
-        </div> */}
+                {item.varieties[0].size !== null && (
+                    <div className="size-checklist">
+                        <h3>Size</h3>
+                        {item.varieties.map((variety, index) => (
+                            <label
+                                key={index}
+                                className={variety.amount === 0 ? 'faded' : ''}
+                            >
+                                <input
+                                    type="radio"
+                                    name="size"
+                                    id={index}
+                                    value={variety.size}
+                                    checked={variety.amount > 0}
+                                    disabled={variety.amount === 0}
+                                />
+                                <span className="size-label">{variety.size}</span>
+                            </label>
+                        ))}
+                    </div>
+                )}
+
             </div>
         </div>
     );

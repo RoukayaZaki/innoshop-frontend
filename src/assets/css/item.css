@@ -18,6 +18,20 @@
     object-fit: cover;
 }
 
+.faded {
+    opacity: 0.5;
+    /* Adjust the opacity value as desired */
+}
+
+.size-checklist label {
+    display: flex;
+    align-items: center;
+}
+
+.size-checklist input[type="radio"] {
+    margin-right: 5px;
+    /* Adjust the margin value as desired */
+}
 
 .image-gallery {
     display: flex;
@@ -38,13 +52,16 @@
     margin-top: 30px;
     font-family: "Abel", sans-serif;
 }
+
 .item-details p {
     margin-top: 10px;
     font-size: 18px;
 }
-.item-details h3{
+
+.item-details h3 {
     color: #003459;
 }
+
 .item-details button {
     background: #003459;
     border: none;

@@ -43,6 +43,8 @@ const Filters = ({ onSort }) => {
     const [name, setName] = useState('');
     const [image, setImage] = useState(null);
     const [price, setPrice] = useState('');
+    const [hasSizes, setHasSizes] = useState(false);
+    const [sizes, setSizes] = useState([]);
 
     const handleNameChange = (event) => {
       setName(event.target.value);
@@ -57,15 +59,33 @@ const Filters = ({ onSort }) => {
       setPrice(event.target.value);
     };
 
+    const handleSizeChange = (event) => {
+      const { value, checked } = event.target;
+      if (checked) {
+        setSizes([...sizes, value]);
+      } else {
+        setSizes(sizes.filter((size) => size !== value));
+      }
+    };
+
     const handleSubmit = (event) => {
       event.preventDefault();
-      // Handle form submission here (e.g., send data to the server)
-      // You can access the name, image, and price values in the respective state variables (name, image, price)
-      // Reset the form or close the modal after submission
+
+      // Perform your form submission logic here
+      // Access the selected sizes from the 'sizes' state array
+
       setName('');
       setImage(null);
       setPrice('');
+      setSizes([]);
       props.onHide();
+    };
+
+    const handleHasSizesChange = (event) => {
+      setHasSizes(event.target.checked);
+      if (!event.target.checked) {
+        setSizes([]);
+      }
     };
 
     return (
@@ -77,30 +97,67 @@ const Filters = ({ onSort }) => {
           <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Name:</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter name"
-                value={name}
-                onChange={handleNameChange}
-              />
+              <Form.Control type="text" placeholder="Enter name" value={name} onChange={handleNameChange} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput2">
               <Form.Label>Image:</Form.Label>
-              <Form.Control
-                type="file"
-                onChange={handleImageChange}
-              />
+              <Form.Control type="file" onChange={handleImageChange} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput3">
               <Form.Label>Price:</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter price"
-                value={price}
-                onChange={handlePriceChange}
-              />
+              <Form.Control type="text" placeholder="Enter price" value={price} onChange={handlePriceChange} />
             </Form.Group>
-            <Button variant="primary" type="submititem">
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput4">
+              <Form.Check
+                type="checkbox"
+                label="Has Sizes"
+                checked={hasSizes}
+                onChange={handleHasSizesChange}
+              />
+              {hasSizes && (
+                <div>
+                  <Form.Label>Sizes:</Form.Label>
+                  <div>
+                    <Form.Check
+                      type="checkbox"
+                      label="XS"
+                      value="XS"
+                      checked={sizes.includes('XS')}
+                      onChange={handleSizeChange}
+                    />
+                    <Form.Check
+                      type="checkbox"
+                      label="S"
+                      value="S"
+                      checked={sizes.includes('S')}
+                      onChange={handleSizeChange}
+                    />
+                    <Form.Check
+                      type="checkbox"
+                      label="M"
+                      value="M"
+                      checked={sizes.includes('M')}
+                      onChange={handleSizeChange}
+                    />
+                    <Form.Check
+                      type="checkbox"
+                      label="L"
+                      value="L"
+                      checked={sizes.includes('L')}
+                      onChange={handleSizeChange}
+                    />
+                    <Form.Check
+                      type="checkbox"
+                      label="XL"
+                      value="XL"
+                      checked={sizes.includes('XL')}
+                      onChange={handleSizeChange}
+                    />
+                  </div>
+                </div>
+              )}
+            </Form.Group>
+            <Button variant="primary" type="submit">
               Save Changes
             </Button>
           </Form>
@@ -113,7 +170,6 @@ const Filters = ({ onSort }) => {
       </Modal>
     );
   };
-
 
   return (
     <div className="sidebar">
@@ -187,9 +243,12 @@ const Filters = ({ onSort }) => {
         </select>
       </div>
       <br />
-      <h2>Admin</h2>
+
       {isAdmin && (
-        <button onClick={handleAdminButtonClick} className='sign-in-button'>Add item</button>
+        <div>
+          <h2>Admin</h2>
+          <button onClick={handleAdminButtonClick} className='sign-in-button'>Add item</button>
+        </div>
       )}
       {showModal && (
         <MyVerticallyCenteredModal

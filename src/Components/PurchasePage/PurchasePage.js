@@ -9,7 +9,6 @@ const PurchasePage = () => {
     
 
     useEffect(() => {
-        // Retrieve items from local storage
         const storedItems = localStorage.getItem('items');
         if (storedItems) {
             setItems(JSON.parse(storedItems));

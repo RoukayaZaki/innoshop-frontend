@@ -31,3 +31,6 @@
     display: block;
     margin-bottom: 5px;
 }
+.item-details-section {
+    display: flex;
+}
