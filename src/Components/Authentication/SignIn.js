@@ -41,8 +41,9 @@ const SignIn = () => {
     const navigate = useNavigate();
 
     function handleClick() {
-        navigate("/userprofile");
+        navigate("/profile");
     }
+
     const handleSignIn = async (e) => {
         e.preventDefault();
         if (!email || !password) {
@@ -63,7 +64,8 @@ const SignIn = () => {
 
             // setting user details in local storage so that can be accessible on
             // profile page
-            localStorage.setItem('current_user_id', response.id);
+            console.log(response);
+            localStorage.setItem('current_user_id', response.data.user._id);
             handleClick();
         }
         else {

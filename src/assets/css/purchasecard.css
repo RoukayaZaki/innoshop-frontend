@@ -34,3 +34,7 @@
 .item-details-section {
     display: flex;
 }
+.bottom-of-card {
+    display: flex;
+    justify-content: space-between;
+}

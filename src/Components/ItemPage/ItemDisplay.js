@@ -6,6 +6,8 @@ const ItemDisplay = ({ prop }) => {
     const a = prop.data;
     const item = a.product;
     const [quantity, setQuantity] = useState(0);
+    const [selectedSize, setSelectedSize] = useState('');
+
 
     const handlePurchase = () => {
         const existingItems = localStorage.getItem('items');
@@ -15,7 +17,12 @@ const ItemDisplay = ({ prop }) => {
             items = JSON.parse(existingItems);
         }
 
-        const existingItemIndex = items.findIndex((existingItem) => existingItem._id === item._id);
+        let existingItemIndex = -1;
+        if (item.varieties[0].size !== null) {
+            existingItemIndex = items.findIndex((existingItem) => existingItem._id === item._id && existingItem.size === selectedSize);
+        } else {
+            existingItemIndex = items.findIndex((existingItem) => existingItem._id === item._id);
+        }
 
         if (existingItemIndex !== -1) {
             items[existingItemIndex].quantity += 1;
@@ -24,6 +31,7 @@ const ItemDisplay = ({ prop }) => {
             const itemWithQuantity = {
                 ...item,
                 quantity: 1,
+                size: selectedSize,
             };
 
             items.push(itemWithQuantity);
@@ -45,8 +53,12 @@ const ItemDisplay = ({ prop }) => {
             if (existingItems) {
                 items = JSON.parse(existingItems);
             }
-
-            const existingItemIndex = items.findIndex((existingItem) => existingItem._id === item._id);
+            let existingItemIndex = -1;
+            if (item.varieties[0].size !== null) {
+                existingItemIndex = items.findIndex((existingItem) => existingItem._id === item._id && existingItem.size === selectedSize);
+            } else {
+                existingItemIndex = items.findIndex((existingItem) => existingItem._id === item._id);
+            }
 
             if (existingItemIndex !== -1) {
                 items[existingItemIndex].quantity -= 1;
@@ -62,14 +74,15 @@ const ItemDisplay = ({ prop }) => {
     const handleIncreaseQuantity = () => {
         setQuantity((prevQuantity) => prevQuantity + 1);
 
-        const existingItems = localStorage.getItem('items');
-        let items = [];
+        const items = JSON.parse(localStorage.getItem('items') ?? '[]');
 
-        if (existingItems) {
-            items = JSON.parse(existingItems);
+
+        let existingItemIndex =  -1;
+        if (item.varieties[0].size !== null) {
+            existingItemIndex = items.findIndex((existingItem) => existingItem._id === item._id && existingItem.size === selectedSize);
+        } else {
+            existingItemIndex = items.findIndex((existingItem) => existingItem._id === item._id);
         }
-
-        const existingItemIndex = items.findIndex((existingItem) => existingItem._id === item._id);
 
         if (existingItemIndex !== -1) {
             items[existingItemIndex].quantity += 1;
@@ -79,17 +92,30 @@ const ItemDisplay = ({ prop }) => {
 
         localStorage.setItem('items', JSON.stringify(items));
     };
+    const handleSizeChange = (event) => {
+        setSelectedSize(event.target.value);
 
-    useEffect(() => {
-        const existingItems = localStorage.getItem('items');
-        let items = [];
+        const items = JSON.parse(localStorage.getItem('items') ?? '[]');
 
-        if (existingItems) {
-            items = JSON.parse(existingItems);
+        let existingItem;
+        if (item.varieties[0].size !== null) {
+            existingItem = items.find((existingItem) => existingItem._id === item._id && existingItem.size === event.target.value);
+        } else {
+            existingItem = items.find((existingItem) => existingItem._id === item._id);
         }
+        setQuantity(existingItem?.quantity ?? 0);
+    };
+    useEffect(() => {
+        const items = JSON.parse(localStorage.getItem('items') ?? '[]');
 
-        const existingItemIndex = items.findIndex((existingItem) => existingItem._id === item._id);
 
+        let existingItemIndex = -1;
+        if (item.varieties[0].size !== null) {
+            existingItemIndex = items.findIndex((existingItem) => existingItem._id === item._id && existingItem.size === selectedSize);
+        } else {
+            existingItemIndex = items.findIndex((existingItem) => existingItem._id === item._id);
+        }
+        
         if (existingItemIndex !== -1) {
             setQuantity(items[existingItemIndex].quantity);
         }
@@ -135,7 +161,8 @@ const ItemDisplay = ({ prop }) => {
                                     name="size"
                                     id={index}
                                     value={variety.size}
-                                    checked={variety.amount > 0}
+                                    checked={variety.size === selectedSize}
+                                    onChange={handleSizeChange}
                                     disabled={variety.amount === 0}
                                 />
                                 <span className="size-label">{variety.size}</span>

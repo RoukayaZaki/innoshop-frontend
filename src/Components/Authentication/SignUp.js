@@ -121,7 +121,7 @@ const SignUp = () => {
             onChange={(e) => setPasswordConfirm(e.target.value)}
           />
           <Link to="/userprofile">
-            <button type="submit">Sign Up</button>
+            <button type="submituser">Sign Up</button>
           </Link>
         </form>
       </div>

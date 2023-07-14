@@ -7,20 +7,18 @@ const PurchaseCard = ({ item, onQuantityChange }) => {
     const decreaseQuantity = () => {
         if (itemQuantity > 0) {
             setItemQuantity(value => value - 1);
-            onQuantityChange(item._id, itemQuantity - 1); // Notify parent component
+            onQuantityChange(item._id, item.size, itemQuantity - 1); // Notify parent component
         }
         if (itemQuantity == 0) {
-            onQuantityChange(item._id, itemQuantity);
+            onQuantityChange(item._id, item.size, itemQuantity);
             return null;
         }
     };
 
     const increaseQuantity = () => {
         setItemQuantity(value => value + 1);
-        onQuantityChange(item._id, itemQuantity + 1); // Notify parent component
+        onQuantityChange(item._id, item.size, itemQuantity + 1); // Notify parent component
     };
-
-    const total = item.price * itemQuantity;
 
 
     const handleConfirmDelete = () => {
@@ -30,17 +28,17 @@ const PurchaseCard = ({ item, onQuantityChange }) => {
 
             if (result) {
                 setItemQuantity(0);
-                onQuantityChange(item._id, 0);
+                onQuantityChange(item._id, item.size, 0);
 
             } else {
                 // If the user cancels the delete action, reset the quantity to 1
                 setItemQuantity(1);
-                onQuantityChange(item._id, 1);
+                onQuantityChange(item._id, item.size, 1);
             }
         } else {
             // If the quantity is not 1, simply decrease the quantity
             decreaseQuantity();
-            onQuantityChange(item._id, itemQuantity - 1);
+            onQuantityChange(item._id, item.size, itemQuantity - 1);
         }
     };
 
@@ -57,11 +55,15 @@ const PurchaseCard = ({ item, onQuantityChange }) => {
                     <img src={`https://innoshop-backend.onrender.com/${item.varieties[0].images[0]}.jpg`} alt={item.name} />
                 </div>
                 <div className="price-section">
-                    <h3>
-                        {item.name}
-                    </h3>
+                    {item.varieties[0].size !== null && (
+                        <h3>
+                            {item.name} {item.size}
+                        </h3>
+                    )}
+                    {item.varieties[0].size === null && (
+                        <h3>{item.name}</h3>
+                    )}
                     <p>Price: {item.price}</p>
-                    {/* <p>Total: {total}</p> */}
                 </div>
             </div>
             <div className="quantity-section">

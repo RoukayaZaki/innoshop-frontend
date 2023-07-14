@@ -157,7 +157,7 @@ const Filters = ({ onSort }) => {
                 </div>
               )}
             </Form.Group>
-            <Button variant="primary" type="submit">
+            <Button variant="primary" className="submit-item" type="submit">
               Save Changes
             </Button>
           </Form>

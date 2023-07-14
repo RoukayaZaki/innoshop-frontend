@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import { Trash } from 'react-bootstrap-icons';
 
 /**
  * @typedef {Object} Variety
@@ -41,7 +42,8 @@ const Product = (props) => {
     const handleDelete = async () => {
         try {
             // Make the delete request using axios or your preferred HTTP library
-            await axios.delete(`/api/products/${product.id}`);
+            // await axios.delete(`/api/products/${product.id}`);
+            console.log("Deleting");
             // Perform any additional actions after successful deletion
         } catch (error) {
             // Handle error cases
@@ -57,14 +59,17 @@ const Product = (props) => {
                     <Card.Text>
                         Price: {product.price}
                     </Card.Text>
-                    <Link to={'/product/' + product._id.toString()}>
-                        <Button variant="primary">View it!</Button>
-                    </Link>
-                    {isAdmin && (
-                        <Button variant="danger" onClick={handleDelete}>
-                            Delete
-                        </Button>
-                    )}
+                    <div className='bottom-of-card'>
+                        <Link to={'/product/' + product._id.toString()}>
+                            <Button variant="primary">View it!</Button>
+                        </Link>
+                        {isAdmin && (
+                            <Trash onClick={handleDelete} color='red' size={30} />
+                            // <Button variant="danger" onClick={handleDelete}>
+                            //     Delete
+                            // </Button>
+                        )}
+                    </div>
                 </Card.Body>
             </Card>
         </div>
@@ -76,7 +81,7 @@ const Products = ({ products }) => {
         <div className="container">
             <div className="row justify-content-start">
                 {products.map((product) => (
-                    <Product key={product.id} product={product} />
+                    <Product key={product._id} product={product} />
                 ))}
             </div>
         </div>

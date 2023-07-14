@@ -5,6 +5,7 @@ import Footer from "../Footer/Footer";
 import ItemDisplay from "./ItemDisplay";
 import { useParams } from 'react-router-dom';
 import PersonalizedHeader from '../Header/PersonalizedHeader';
+import ItemLoading from '../LoadingPlaceholders/ItemLoading';
 
 const ItemPage = () => {
     const { id } = useParams();
@@ -35,7 +36,7 @@ const ItemPage = () => {
                 {item ? (
                     <ItemDisplay prop={item} />
                 ) : (
-                    <p>Loading item...</p>
+                    <ItemLoading />
                 )}
                 <Footer />
             </div>
@@ -49,7 +50,7 @@ const ItemPage = () => {
                 {item ? (
                     <ItemDisplay prop={item} />
                 ) : (
-                    <p>Loading item...</p>
+                    <ItemLoading />
                 )}
                 <Footer />
             </div>

@@ -2,11 +2,13 @@ import "./../../assets/css/userprofilepage.css"
 import PersonalizedHeader from "../Header/PersonalizedHeader";
 import Footer from "../Footer/Footer";
 import User from "./UserProfile"
+import NavBar from "../NavBar/NavBar";
 
 const UserProfilePage = () => {
     return (
         <div>
             <PersonalizedHeader />
+            <NavBar />
             <div className="panel-aligner">
                 <User />
             </div>

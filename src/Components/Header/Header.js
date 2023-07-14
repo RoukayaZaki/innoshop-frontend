@@ -26,7 +26,7 @@ const Header = ({ onSearch }) => {
                 </div>
                 <div className="end-section">
                     <form className="header" onSubmit={handleSearch}>
-                        <button type="submit">Search</button>
+                        <button type="submit" className='submit-search'>Search</button>
                         <input value={keyword} onChange={handleInputChange} type="search" placeholder="Search..." />
                     </form>
                     <Link to="/signin" className="sign-in-button">Sign In</Link>

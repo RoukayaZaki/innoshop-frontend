@@ -3,6 +3,7 @@ import "./../../assets/css/header.css"
 import { Link } from 'react-router-dom';
 import cart from './../../assets/shopping-cart.png'
 import React, { useState } from 'react';
+import { Cart, Person } from 'react-bootstrap-icons';
 
 const PersonalizedHeader = ({ onSearch }) => {
     const handleSignOut = () => {
@@ -24,15 +25,20 @@ const PersonalizedHeader = ({ onSearch }) => {
         <div className="header-cover">
             <div className="main-bar">
                 <div className="start-section">
-                    <img src={logo} alt="Logo" />
+                    <Link to="/">
+                        <img src={logo} alt="Logo" />
+                    </Link>
                     <form className="header" onSubmit={handleSearch}>
-                        <button type="submit">Search</button>
+                        <button type="submit" className='submit-search'>Search</button>
                         <input value={keyword} onChange={handleInputChange} type="search" placeholder="Search..." />
                     </form>
                 </div>
                 <div className="end-section">
                     <Link to="/checkout" className="cart-icon">
-                        <img src={cart} alt="Cart" />
+                        <Cart size={36} color='#003459' />
+                    </Link>
+                    <Link to="/profile" className="cart-icon">
+                        <Person size={39} color='#003459' />
                     </Link>
                     <Link to="/signin" className="sign-in-button" onClick={handleSignOut}>Sign Out</Link>
                 </div>
