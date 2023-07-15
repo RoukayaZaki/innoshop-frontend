@@ -1,50 +1,63 @@
 /* Filters.css */
+.add-item-btn {
+  background-color: #003459;
+  width: 55%;
+  max-height: 45px;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  border-radius: 5px;
+  font-family: "Abel", sans-serif;
+  font-weight: normal;
+  font-size: 18px;
+  text-align: center;
+}
 
 .sidebar {
-    padding: 20px;
-    border-radius: 5px;
-    font-family: "Abel", sans-serif;
-    font-weight: normal;
-  }
-  
-  h2 {
-    margin-bottom: 10px;
-    color: #003459;
-  }
-  
-  h3 {
-    font-weight: normal;
-    margin-top: 20px;
-    font-size: 16px;
-  }
-  
-  ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  li {
-    margin-bottom: 5px;
-  }
-  
-  .price-range {
-    margin-top: 10px;
-  }
-  
-  .price-range select {
-    width: 100px;
-    padding: 5px;
-    border-radius: 3px;
-    border: 1px solid #ccc;
-  }
-  
-  .price-range select:first-child {
-    margin-right: 5px;
-  }
-  
-  /* Additional styles can be added as needed */
-  /* filters.css */
+  padding: 20px;
+  border-radius: 5px;
+  font-family: "Abel", sans-serif;
+  font-weight: normal;
+}
+
+h2 {
+  margin-bottom: 10px;
+  color: #003459;
+}
+
+h3 {
+  font-weight: normal;
+  margin-top: 20px;
+  font-size: 16px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  margin-bottom: 5px;
+}
+
+.price-range {
+  margin-top: 10px;
+}
+
+.price-range select {
+  width: 100px;
+  padding: 5px;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+}
+
+.price-range select:first-child {
+  margin-right: 5px;
+}
+
+/* Additional styles can be added as needed */
+/* filters.css */
 
 /* Other styles... */
 /* 

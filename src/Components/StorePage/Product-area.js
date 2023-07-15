@@ -14,13 +14,11 @@ const Product_area = ({ products }) => {
   const handleSort = (sortOption, minPrice, maxPrice) => {
     // Apply sorting logic based on the selected filters
     let sorted = [...products];
-
-    // if (sortOption === 'Newest First') {
-    //   sorted.sort((a, b) => b.date - a.date);
-    // } else if (sortOption === 'Newest Last') {
-    //   sorted.sort((a, b) => a.date - b.date);
-    // } else
-    if (sortOption === '') {
+    if (sortOption === 'Newest First') {
+      sorted.sort((a, b) => new Date(b.addition_time) - new Date(a.addition_time));
+    } else if (sortOption === 'Newest Last') {
+      sorted.sort((a, b) => new Date(a.addition_time) - new Date(b.addition_time));
+    } else if (sortOption === '') {
       sorted = products;
     } else if (sortOption === 'Cheapest First') {
       sorted.sort((a, b) => a.price - b.price);

@@ -29,6 +29,7 @@ const StorePage = () => {
             .then(response => {
                 const receivedProducts = response.data.data.products;
                 setProducts(receivedProducts);
+                console.log(receivedProducts);
             });
     }, []);
 

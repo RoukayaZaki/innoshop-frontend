@@ -4,6 +4,19 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import "./../../assets/css/filters.css";
 
+
+async function addItem(credentials) {
+  return fetch('http://localhost:3001/api/v1/products/', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(credentials)
+  })
+      .then(data => data.json())
+};
+
+
 const Filters = ({ onSort }) => {
   const [sortOption, setSortOption] = useState('');
   const [minPrice, setMinPrice] = useState('');
@@ -39,10 +52,13 @@ const Filters = ({ onSort }) => {
     setShowModal(false);
   };
 
+
+
   const MyVerticallyCenteredModal = (props) => {
     const [name, setName] = useState('');
     const [image, setImage] = useState(null);
     const [price, setPrice] = useState('');
+    const [type, setType] = useState('');
     const [hasSizes, setHasSizes] = useState(false);
     const [sizes, setSizes] = useState([]);
 
@@ -59,6 +75,10 @@ const Filters = ({ onSort }) => {
       setPrice(event.target.value);
     };
 
+    const handleTypeChange = (event) => {
+      setType(event.target.value);
+    };
+
     const handleSizeChange = (event) => {
       const { value, checked } = event.target;
       if (checked) {
@@ -67,20 +87,39 @@ const Filters = ({ onSort }) => {
         setSizes(sizes.filter((size) => size !== value));
       }
     };
-
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
       event.preventDefault();
 
-      // Perform your form submission logic here
-      // Access the selected sizes from the 'sizes' state array
+      if (!name || !price || !image || !type) {
+        alert('Please add all the fields');
+        return;
+      }
+
+      let varieties = [];
+
+      if(hasSizes) {
+        sizes.forEach((ele) => {
+          let data = {};
+          data.amount = 0;
+          data.color = null;
+          
+        });
+      }
+
+      const response = await addItem({
+        name,
+        price,
+        type,
+
+      })
 
       setName('');
       setImage(null);
       setPrice('');
+      setType('');
       setSizes([]);
       props.onHide();
     };
-
     const handleHasSizesChange = (event) => {
       setHasSizes(event.target.checked);
       if (!event.target.checked) {
@@ -106,6 +145,28 @@ const Filters = ({ onSort }) => {
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput3">
               <Form.Label>Price:</Form.Label>
               <Form.Control type="text" placeholder="Enter price" value={price} onChange={handlePriceChange} />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput4">
+              <Form.Label>Type:</Form.Label>
+              <Form.Select aria-label="Default select example" value={type} onChange={handleTypeChange}>
+                <option>Select type</option>
+                <option value="sweatshirt">sweatshirt</option>
+                <option value="T-shirt">T-shirt</option>
+                <option value="bag">bag</option>
+                <option value="notepad">notepad</option>
+                <option value="meal">meal</option>
+                <option value="hat">hat</option>
+                <option value="gloves">gloves</option>
+                <option value="accommodation">accommodation</option>
+                <option value="bottle">bottle</option>
+                <option value="mug">mug</option>
+                <option value="accessories">accessories</option>
+                <option value="cap">cap</option>
+                <option value="T-Shirt">T-Shirt</option>
+                <option value="game">game</option>
+                <option value="service">service</option>
+                <option value={null}>null</option>
+              </Form.Select>
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput4">
               <Form.Check
@@ -166,16 +227,17 @@ const Filters = ({ onSort }) => {
           <Button variant="secondary" onClick={props.onHide}>
             Close
           </Button>
-        </Modal.Footer>
+        </Modal.Footer> 
       </Modal>
     );
   };
+
 
   return (
     <div className="sidebar">
       <h2>Filters</h2>
 
-      <h3>Date</h3>
+      <h3>Sort</h3>
       <ul>
         <li>
           <label>
@@ -247,7 +309,7 @@ const Filters = ({ onSort }) => {
       {isAdmin && (
         <div>
           <h2>Admin</h2>
-          <button onClick={handleAdminButtonClick} className='sign-in-button'>Add item</button>
+          <button onClick={handleAdminButtonClick} className='add-item-btn'>Add item</button>
         </div>
       )}
       {showModal && (

@@ -15,6 +15,7 @@ async function signinUser(credentials) {
     })
         .then(data => data.json())
 };
+
 async function signupUser(credentials) {
     return fetch('http://localhost:3001/api/v1/users/signup', {
         method: 'POST',
@@ -49,7 +50,8 @@ const SignInPage = () => {
         if (tokenString === undefined) {
             return '';
         }
-        const userToken = JSON.parse(tokenString);
+        // console.log(tokenString);
+        const userToken = tokenString;
         return userToken?.token
     };
 
@@ -86,6 +88,8 @@ const SignInPage = () => {
             email,
             password
         });
+
+        console.log(response);
 
         if (response.status === 'success') {
             saveToken(response.token);
