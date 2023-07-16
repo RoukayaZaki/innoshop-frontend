@@ -7,14 +7,30 @@ import "./../../assets/css/filters.css";
 
 async function addItem(credentials) {
   return fetch('http://localhost:3001/api/v1/products/', {
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(credentials)
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + localStorage.getItem('token'),
+    },
+    body: JSON.stringify(credentials)
   })
-      .then(data => data.json())
+    .then(data => data.json())
 };
+
+
+async function addImage(formdata) {
+  return fetch('http://localhost:3001/api/v1/products/upload', {
+    method: 'POST',
+    processData: false,
+    contentType: false,
+    headers: {
+      'Authorization': 'Bearer ' + localStorage.getItem('token'),
+    },
+    body: formdata
+  })
+    .then(data => data.json())
+};
+
 
 
 const Filters = ({ onSort }) => {
@@ -66,9 +82,13 @@ const Filters = ({ onSort }) => {
       setName(event.target.value);
     };
 
-    const handleImageChange = (event) => {
-      const file = event.target.files[0];
-      setImage(file);
+    const handleImageChange = (e) => {
+      const img = {
+        preview: URL.createObjectURL(e.target.files[0]),
+        data: e.target.files[0],
+      }
+      setImage(img);
+
     };
 
     const handlePriceChange = (event) => {
@@ -97,12 +117,11 @@ const Filters = ({ onSort }) => {
 
       let varieties = [];
 
-      if(hasSizes) {
+      if (hasSizes) {
         sizes.forEach((ele) => {
           let data = {};
           data.amount = 0;
           data.color = null;
-          
         });
       }
 
@@ -110,8 +129,33 @@ const Filters = ({ onSort }) => {
         name,
         price,
         type,
+        varieties
+      });
 
-      })
+      console.log(response);
+
+      if (response.status === 'success') {
+        window.alert('Item added successfully!');
+      }
+      else {
+        window.alert('Something went wrong: ' + response.message);
+      }
+
+      let formData = new FormData()
+      formData.append('image', image.data);
+
+      console.log(formData);
+
+      const imgResponse = await addImage(formData);
+
+      console.log(imgResponse);
+
+      if (imgResponse.status === 'success') {
+        window.alert('Image added successfully!');
+      }
+      else {
+        window.alert('Something went wrong: ' + imgResponse.message);
+      }
 
       setName('');
       setImage(null);
@@ -119,6 +163,7 @@ const Filters = ({ onSort }) => {
       setType('');
       setSizes([]);
       props.onHide();
+
     };
     const handleHasSizesChange = (event) => {
       setHasSizes(event.target.checked);
@@ -140,7 +185,7 @@ const Filters = ({ onSort }) => {
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput2">
               <Form.Label>Image:</Form.Label>
-              <Form.Control type="file" onChange={handleImageChange} />
+              <Form.Control type="file" name="image" onChange={handleImageChange} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput3">
               <Form.Label>Price:</Form.Label>
@@ -227,7 +272,7 @@ const Filters = ({ onSort }) => {
           <Button variant="secondary" onClick={props.onHide}>
             Close
           </Button>
-        </Modal.Footer> 
+        </Modal.Footer>
       </Modal>
     );
   };
@@ -299,7 +344,7 @@ const Filters = ({ onSort }) => {
         </select>
         <select name="max-price" value={maxPrice} onChange={handleMaxPriceChange}>
           <option value="100000000">Max</option>
-          <option value="500">500</option> 
+          <option value="500">500</option>
           <option value="1000">1000</option>
           <option value="2000">2000</option>
         </select>

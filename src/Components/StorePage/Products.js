@@ -5,6 +5,16 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Trash } from 'react-bootstrap-icons';
 import "./../../assets/css/product-card.css"
+
+async function deleteItem(id) {
+    return fetch(`http://localhost:3001/api/v1/products/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token'),
+      }
+    })
+  };
+
 /**
  * @typedef {Object} Variety
  * @property {number} id
@@ -43,11 +53,12 @@ const Product = (props) => {
         try {
             // Make the delete request using axios or your preferred HTTP library
             // await axios.delete(`/api/products/${product.id}`);
-            console.log("Deleting");
-            // Perform any additional actions after successful deletion
+            await deleteItem(product._id.toString());
         } catch (error) {
             // Handle error cases
+            console.log(error);
         }
+
     };
 
     return (
