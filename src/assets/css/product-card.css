@@ -1,0 +1,15 @@
+#button-btn{
+    background-color: #40BA21 ;
+    border: none;
+    padding: 9px 20px;
+    border-radius:26px ;
+}
+.bottom-of-card{
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+.veiw-item{
+    display: flex;
+    justify-content: space-between;
+}

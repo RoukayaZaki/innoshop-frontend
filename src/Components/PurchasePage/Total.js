@@ -1,6 +1,9 @@
 import './../../assets/css/total.css'
 
-const Total = ({ total }) => {
+const Total = ({ total , checkout }) => {
+    const addToCart = (checkout) => {
+        
+    }
     return (
         <div className="total">
             <div className='subtotal-value'>
@@ -19,7 +22,7 @@ const Total = ({ total }) => {
                     {total}.00
                 </p>
             </div>
-            <button>c h e c k o u t</button>
+            <button onClick={addToCart(checkout)}>c h e c k o u t</button>
         </div>
     );
 }

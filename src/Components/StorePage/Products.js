@@ -4,7 +4,7 @@ import Card from 'react-bootstrap/Card';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Trash } from 'react-bootstrap-icons';
-
+import "./../../assets/css/product-card.css"
 /**
  * @typedef {Object} Variety
  * @property {number} id
@@ -51,20 +51,20 @@ const Product = (props) => {
     };
 
     return (
-        <div className="col-sm">
-            <Card style={{ width: '18rem', margin: '10px' }}>
+        <div className="col-xl">
+            <Card style={{ width: '22rem', height:'33rem', margin: '0.5rem 0' }}>
                 <Card.Img variant="top" src={imgStr} />
-                <Card.Body>
+                <Card.Body className='bottom-of-card'>
                     <Card.Title>{product.name}</Card.Title>
                     <Card.Text>
                         Price: {product.price}
                     </Card.Text>
-                    <div className='bottom-of-card'>
+                    <div className='veiw-item' >
                         <Link to={'/product/' + product._id.toString()}>
-                            <Button variant="primary">View it!</Button>
+                            <Button id="button-btn" variant="primary">View it!</Button>
                         </Link>
                         {isAdmin && (
-                            <Trash onClick={handleDelete} color='red' size={30} />
+                            <Trash onClick={handleDelete} color='darkred' size={30} />
                             // <Button variant="danger" onClick={handleDelete}>
                             //     Delete
                             // </Button>

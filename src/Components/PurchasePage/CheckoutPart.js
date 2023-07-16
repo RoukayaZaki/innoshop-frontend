@@ -58,7 +58,7 @@ const CheckoutPart = ({ items, filtered }) => {
           ))
         )}
       </div>
-      <Total total={calculateTotal()} />
+      <Total checkout = {items} total={calculateTotal()} />
     </div>
   );
 };

@@ -52,12 +52,12 @@ const PurchaseCard = ({ item, onQuantityChange }) => {
 
                 <div className="image-gallery">
 
-                    <img src={`https://innoshop-backend.onrender.com/${item.varieties[0].images[0]}.jpg`} alt={item.name} />
+                    <img src={`https://ipts.innopolis.university/api/v1/file/${item.varieties[0].images[0]}`} alt={item.name} />
                 </div>
                 <div className="price-section">
                     {item.varieties[0].size !== null && (
                         <h3>
-                            {item.name} {item.size}
+                            {item.name+ ' ' + item.size}
                         </h3>
                     )}
                     {item.varieties[0].size === null && (

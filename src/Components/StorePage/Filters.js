@@ -238,7 +238,7 @@ const Filters = ({ onSort }) => {
       <h2>Filters</h2>
 
       <h3>Sort</h3>
-      <ul>
+      <ul className='radio-buttons'>
         <li>
           <label>
             <input
@@ -293,15 +293,15 @@ const Filters = ({ onSort }) => {
       <div className="price-range">
         <select name="min-price" value={minPrice} onChange={handleMinPriceChange}>
           <option value="0">Min</option>
-          <option value="500">500 R</option>
-          <option value="1000">1000 R</option>
-          <option value="2000">2000 R</option>
+          <option value="500">500</option>
+          <option value="1000">1000</option>
+          <option value="2000">2000</option>
         </select>
         <select name="max-price" value={maxPrice} onChange={handleMaxPriceChange}>
           <option value="100000000">Max</option>
-          <option value="500">500 R</option>
-          <option value="1000">1000 R</option>
-          <option value="2000">2000 R</option>
+          <option value="500">500</option> 
+          <option value="1000">1000</option>
+          <option value="2000">2000</option>
         </select>
       </div>
       <br />

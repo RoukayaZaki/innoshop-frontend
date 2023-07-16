@@ -1,7 +1,6 @@
 import logo from './../../assets/innou-logo 1.png';
 import "./../../assets/css/header.css"
 import { Link } from 'react-router-dom';
-import cart from './../../assets/shopping-cart.png'
 import React, { useState } from 'react';
 import { Cart, Person } from 'react-bootstrap-icons';
 

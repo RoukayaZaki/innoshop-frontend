@@ -43,7 +43,7 @@ const Product_area = ({ products }) => {
   };
 
   return (
-    <div className="product-container" style={{ margin: '0px' }}>
+    <div className="product-container" style={{ margin: '30px 0px' }}>
       <div className="row">
         <div className="col-3">
           <Filters onSort={handleSort} />
