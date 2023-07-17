@@ -45,12 +45,7 @@ const UserProfilePage = () => {
           <h2>Order History</h2>
           <div className= "scrollable-content1">
           <ul>
-            <li>Order #123</li>
-            <li>Order #567</li>
-            <li>Order #910</li>
-            <li>Order #1111</li>
-            <li>Order #2222</li>
-            <li>Order #3333</li>
+            
           </ul>
         </div>
         </div>

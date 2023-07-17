@@ -6,6 +6,8 @@ import SignInPage from './Components/SignIn/SignInPage';
 import SignUpPage from './Components/Authentication/SignUpPage';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import UserProfilePage from './Components/User/UserProfilePage';
+import Success from './Components/Verdict/Success';
+import Fail from './Components/Verdict/Fail';
 
 function App() {
  
@@ -19,6 +21,9 @@ function App() {
         <Route path="/signup/" element={<SignUpPage />} />
         <Route path="/checkout/" element={<PurchasePage />} />
         <Route path="/profile/" element={<UserProfilePage />} />
+        <Route path="/success/" element={<Success />} />
+        <Route path="/fail/" element={<Fail />} />
+
       </Routes>
     </Router>
   );

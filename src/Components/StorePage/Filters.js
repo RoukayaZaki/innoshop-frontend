@@ -136,6 +136,7 @@ const Filters = ({ onSort }) => {
 
       if (response.status === 'success') {
         window.alert('Item added successfully!');
+        window.location.reload();
       }
       else {
         window.alert('Something went wrong: ' + response.message);

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './../../assets/css/purchasecard.css';
+import Alerting from '../Verdict/Alert';
 
 const PurchaseCard = ({ item, onQuantityChange }) => {
     const [itemQuantity, setItemQuantity] = useState(item.quantity);
@@ -20,23 +21,18 @@ const PurchaseCard = ({ item, onQuantityChange }) => {
         onQuantityChange(item._id, item.size, itemQuantity + 1); // Notify parent component
     };
 
+    const [showAlert, setShowAlert] = useState(false);
+
+    const handleDelete = () => {
+        setItemQuantity(0);
+        onQuantityChange(item._id, item.size, 0);
+        setShowAlert(false);
+    };
 
     const handleConfirmDelete = () => {
         if (itemQuantity === 1) {
-            // If the quantity is 1, show the warning and confirm delete
-            const result = window.confirm(`Deleting ${item.name}. Are you sure?`);
-
-            if (result) {
-                setItemQuantity(0);
-                onQuantityChange(item._id, item.size, 0);
-
-            } else {
-                // If the user cancels the delete action, reset the quantity to 1
-                setItemQuantity(1);
-                onQuantityChange(item._id, item.size, 1);
-            }
+            setShowAlert(true);
         } else {
-            // If the quantity is not 1, simply decrease the quantity
             decreaseQuantity();
             onQuantityChange(item._id, item.size, itemQuantity - 1);
         }
@@ -48,6 +44,9 @@ const PurchaseCard = ({ item, onQuantityChange }) => {
 
     return (
         <div className="item-card">
+            {showAlert && (
+                <Alerting message={`Deleting ${item.name}. Are you sure?`} onAcceptance={handleDelete} onClose={() => setShowAlert(false)}/>
+            )}
             <div className='item-details-section'>
 
                 <div className="image-gallery">
@@ -57,7 +56,7 @@ const PurchaseCard = ({ item, onQuantityChange }) => {
                 <div className="price-section">
                     {item.varieties[0].size !== null && (
                         <h3>
-                            {item.name+ ' ' + item.size}
+                            {item.name + ' ' + item.size}
                         </h3>
                     )}
                     {item.varieties[0].size === null && (

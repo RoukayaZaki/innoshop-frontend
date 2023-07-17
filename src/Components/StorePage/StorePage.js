@@ -11,16 +11,13 @@ import axios from 'axios';
 
 const StorePage = () => {
     const [products, setProducts] = useState([]);
-    const [filteredProducts, setFilteredProducts] = useState([]);
-
-    const handleSearch = (keyword) => {
-        console.log(keyword);
-        const filtered = products.filter(
-            (product) =>
-                product.name.toLowerCase().includes(keyword.toLowerCase())
-        );
-        setFilteredProducts(filtered);
-    };
+    const [search, setSearch] = useState('');
+    // const [filteredProducts, setFilteredProducts] = useState([]);
+    
+    const filteredProducts = products.filter(
+        (product) =>
+            search === '' || product.name.toLowerCase().includes(search.toLowerCase())
+    );
 
     useEffect(() => {
         console.log('Products loading....');
@@ -33,40 +30,27 @@ const StorePage = () => {
             });
     }, []);
 
-    const token = localStorage.getItem('token');
-    if (token === null) {
-        return (
-            <div>
-                <Header onSearch={handleSearch} />
-                <NavBar />
-                <div className="storepage-aligner">
-                    <Hero_Banner />
-                    {filteredProducts.length === 0 ? (
-                        <Product_area products={products} />
-                    ) : (
-                        <Product_area products={filteredProducts} />
-                    )}
-                </div>
-                <Footer />
-            </div>
-        );
-    } else {
-        return (
-            <div>
-                <PersonalizedHeader onSearch={handleSearch} />
-                <NavBar />
-                <div className="storepage-aligner">
-                    <Hero_Banner />
-                    {filteredProducts.length === 0 ? (
-                        <Product_area products={products} />
-                    ) : (
-                        <Product_area products={filteredProducts} />
-                    )}
-                </div>
-                <Footer />
-            </div>
-        );
+    const handleDelete = (product) => {
+        setProducts(products => products.filter(p => p._id !== product._id));
     }
+
+    const token = localStorage.getItem('token');
+    const MyHeader = token === null ? Header : PersonalizedHeader;
+    return (
+        <div>
+            <MyHeader onSearch={setSearch} />
+            <NavBar />
+            <div className="storepage-aligner">
+                <Hero_Banner />
+                {filteredProducts.length === 0 ? (
+                    <p>Your search didn't match any products</p>
+                ) : (
+                    <Product_area products={filteredProducts} onDelete={handleDelete} />
+                )}
+            </div>
+            <Footer />
+        </div>
+    );
 }
 
 export default StorePage;

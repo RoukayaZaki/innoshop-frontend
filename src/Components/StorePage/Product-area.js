@@ -3,8 +3,7 @@ import Filters from './Filters';
 import Products from './Products';
 import './../../assets/css/product-area.css';
 
-const Product_area = ({ products }) => {
-  const [sortedProducts, setSortedProducts] = useState(products);
+const Product_area = ({ products, onDelete }) => {
   const [selectedFilters, setSelectedFilters] = useState({
     sortOption: '',
     minPrice: '',
@@ -38,25 +37,20 @@ const Product_area = ({ products }) => {
       return true;
     });
 
-    setSortedProducts(sorted);
-    setSelectedFilters({ sortOption, minPrice, maxPrice });
+    return sorted;
   };
+
+  const sortedProducts = handleSort(selectedFilters.sortOption, selectedFilters.minPrice, selectedFilters.maxPrice);
 
   return (
     <div className="product-container" style={{ margin: '30px 0px' }}>
       <div className="row">
         <div className="col-3">
-          <Filters onSort={handleSort} />
+          <Filters onSort={(sortOption, minPrice, maxPrice) => setSelectedFilters({ sortOption, minPrice, maxPrice })} />
         </div>
         <div className="col-9">
           <h3>All Items</h3>
-          {selectedFilters.sortOption === '' &&
-            selectedFilters.minPrice === '' &&
-            selectedFilters.maxPrice === '' ? (
-            <Products products={products} />
-          ) : (
-            <Products products={sortedProducts} />
-          )}
+          <Products products={sortedProducts} onDelete={onDelete} />
         </div>
       </div>
     </div>

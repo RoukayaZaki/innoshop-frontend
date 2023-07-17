@@ -9,7 +9,7 @@
     flex-direction: column;
     align-items: stretch;
 }
-.veiw-item{
+.view-item{
     display: flex;
     justify-content: space-between;
 }
