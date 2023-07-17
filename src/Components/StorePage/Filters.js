@@ -115,8 +115,7 @@ const Filters = ({ onSort }) => {
         return;
       }
 
-      let varieties = [];
-
+      
       if (hasSizes) {
         sizes.forEach((ele) => {
           let data = {};
@@ -124,16 +123,21 @@ const Filters = ({ onSort }) => {
           data.color = null;
         });
       }
+      
+      let formData = new FormData()
+      formData.append('image', image.data);
+      const { id: photoID } = await addImage(formData);
 
+      let varieties = [{color: null, amount: 10, purchases: 0, id: photoID, images: [photoID]}];
       const response = await addItem({
         name,
         price,
         type,
+        photoID,
         varieties
       });
 
       console.log(response);
-
       if (response.status === 'success') {
         window.alert('Item added successfully!');
         window.location.reload();
@@ -142,21 +146,18 @@ const Filters = ({ onSort }) => {
         window.alert('Something went wrong: ' + response.message);
       }
 
-      let formData = new FormData()
-      formData.append('image', image.data);
 
-      console.log(formData);
+      // console.log(formData);
 
-      const imgResponse = await addImage(formData);
 
-      console.log(imgResponse);
+      // console.log(imgResponse);
 
-      if (imgResponse.status === 'success') {
-        window.alert('Image added successfully!');
-      }
-      else {
-        window.alert('Something went wrong: ' + imgResponse.message);
-      }
+      // if (imgResponse.status === 'success') {
+      //   window.alert('Image added successfully!');
+      // }
+      // else {
+      //   window.alert('Something went wrong: ' + imgResponse.message);
+      // }
 
       setName('');
       setImage(null);

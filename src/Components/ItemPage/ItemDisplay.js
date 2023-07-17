@@ -126,9 +126,9 @@ const ItemDisplay = ({ prop }) => {
     return (
         <div className="item-container">
             <div className="item-image">
-                <img src={`https://innoshop-backend.onrender.com/${item.varieties[0].images[0]}.jpg`} alt={item.title} className="main-image" />
+                <img src={`http://localhost:3001/${item.varieties[0].images[0]}`} crossorigin="anonymous" alt={item.title} className="main-image" />
                 <div className="image-gallery">
-                    <img key={item.varieties[0].images[0]} src={`https://innoshop-backend.onrender.com/${item.varieties[0].images[0]}.jpg`} alt={`Gallery ${item.varieties[0].images[0]}`} />
+                    <img key={item.varieties[0].images[0]} crossorigin="anonymous" src={`http://localhost:3001/${item.varieties[0].images[0]}`} alt={`Gallery ${item.photoID}`} />
                     {/* {item.varieties.map((variety, index) => (
                         // variety.images.map((photo, index) => (
                         // ))

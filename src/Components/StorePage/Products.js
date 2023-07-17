@@ -41,7 +41,7 @@ async function deleteItem(id) {
  * @returns 
  */
 const Product = ({ product, onDelete }) => {
-    const imgStr = 'https://ipts.innopolis.university/api/v1/file/' + product.varieties[0].images[0];
+    const imgStr = `http://localhost:3001/${product.varieties[0].images[0]}`;
 
     const [isAdmin, setIsAdmin] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
@@ -65,7 +65,7 @@ const Product = ({ product, onDelete }) => {
     return (
         <div className="col-xl">
             <Card style={{ width: '22rem', height: '33rem', margin: '0.5rem 0' }}>
-                <Card.Img variant="top" src={imgStr} />
+                <Card.Img variant="top" crossorigin="anonymous" src={imgStr} />
                 <Card.Body className='bottom-of-card'>
                     <Card.Title>{product.name}</Card.Title>
                     <Card.Text>
