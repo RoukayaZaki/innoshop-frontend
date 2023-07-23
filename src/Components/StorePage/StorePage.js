@@ -22,7 +22,7 @@ const StorePage = () => {
     useEffect(() => {
         console.log('Products loading....');
         axios
-            .get('http://localhost:3001/api/v1/products?limit=15')
+            .get('http://localhost:3001/api/v1/products?limit=12')
             .then(response => {
                 const receivedProducts = response.data.data.products;
                 setProducts(receivedProducts);
