@@ -1,105 +1,129 @@
-import React, { useState, useEffect } from 'react';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import Form from 'react-bootstrap/Form';
+import React, { useState, useEffect } from "react";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import Form from "react-bootstrap/Form";
 import "./../../assets/css/filters.css";
+import { Variety } from "./Product";
 
+interface Item {
+  name: string;
+  price: string;
+  type: string;
+  photoID: any;
+  varieties: Variety[];
+}
 
-async function addItem(credentials) {
-  return fetch('http://localhost:3001/api/v1/products/', {
-    method: 'POST',
+async function addItem(credentials: Item) {
+  return fetch("http://localhost:3001/api/v1/products/", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + localStorage.getItem('token'),
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + localStorage.getItem("token"),
     },
-    body: JSON.stringify(credentials)
-  })
-    .then(data => data.json())
-};
+    body: JSON.stringify(credentials),
+  }).then((data) => data.json());
+}
 
-
-async function addImage(formdata) {
-  return fetch('http://localhost:3001/api/v1/products/upload', {
-    method: 'POST',
-    processData: false,
-    contentType: false,
+async function addImage(formdata: FormData) {
+  return fetch("http://localhost:3001/api/v1/products/upload", {
+    method: "POST",
     headers: {
-      'Authorization': 'Bearer ' + localStorage.getItem('token'),
+      Authorization: "Bearer " + localStorage.getItem("token"),
     },
-    body: formdata
-  })
-    .then(data => data.json())
-};
+    body: formdata,
+  }).then((data) => data.json());
+}
 
-
-
-const Filters = ({ onSort }) => {
-  const [sortOption, setSortOption] = useState('');
-  const [minPrice, setMinPrice] = useState('');
-  const [maxPrice, setMaxPrice] = useState('');
+const Filters = ({
+  onSort,
+}: {
+  onSort: (sortOption: string, minPrice: string, maxPrice: string) => void;
+}) => {
+  const [sortOption, setSortOption] = useState("");
+  const [minPrice, setMinPrice] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    const role = localStorage.getItem('role');
-    setIsAdmin(role === 'admin');
+    const role = localStorage.getItem("role");
+    setIsAdmin(role === "admin");
   }, []);
 
-  const handleSortOptionChange = (event) => {
+  const handleSortOptionChange: React.ChangeEventHandler<HTMLInputElement> = (
+    event
+  ) => {
     setSortOption(event.target.value);
     onSort(event.target.value, minPrice, maxPrice);
   };
 
-  const handleMinPriceChange = (event) => {
+  const handleMinPriceChange: React.ChangeEventHandler<HTMLSelectElement> = (
+    event
+  ) => {
     setMinPrice(event.target.value);
     onSort(sortOption, event.target.value, maxPrice);
   };
 
-  const handleMaxPriceChange = (event) => {
+  const handleMaxPriceChange: React.ChangeEventHandler<HTMLSelectElement> = (
+    event
+  ) => {
     setMaxPrice(event.target.value);
     onSort(sortOption, minPrice, event.target.value);
   };
 
-  const handleAdminButtonClick = () => {
+  const handleAdminButtonClick: () => void = () => {
     setShowModal(true);
   };
 
-  const handleModalClose = () => {
+  const handleModalClose: () => void = () => {
     setShowModal(false);
   };
 
-
-
-  const MyVerticallyCenteredModal = (props) => {
-    const [name, setName] = useState('');
-    const [image, setImage] = useState(null);
-    const [price, setPrice] = useState('');
-    const [type, setType] = useState('');
+  const MyVerticallyCenteredModal: React.FC<{
+    onHide: () => void;
+    show: boolean;
+  }> = (props) => {
+    const [name, setName] = useState("");
+    const [image, setImage] = useState<{ preview: string; data: File } | null>(
+      null
+    );
+    const [price, setPrice] = useState("");
+    const [type, setType] = useState("");
     const [hasSizes, setHasSizes] = useState(false);
-    const [sizes, setSizes] = useState([]);
+    const [sizes, setSizes] = useState<string[]>([]);
 
-    const handleNameChange = (event) => {
+    const handleNameChange: React.ChangeEventHandler<HTMLInputElement> = (
+      event
+    ) => {
       setName(event.target.value);
     };
 
-    const handleImageChange = (e) => {
+    const handleImageChange: React.ChangeEventHandler<HTMLInputElement> = (
+      e
+    ) => {
+      if (e.target.files === null) return;
       const img = {
         preview: URL.createObjectURL(e.target.files[0]),
         data: e.target.files[0],
-      }
+      };
       setImage(img);
-
     };
 
-    const handlePriceChange = (event) => {
+    const handlePriceChange: React.ChangeEventHandler<HTMLInputElement> = (
+      event
+    ) => {
       setPrice(event.target.value);
     };
 
-    const handleTypeChange = (event) => {
+    const handleTypeChange: React.ChangeEventHandler<HTMLSelectElement> = (
+      event
+    ) => {
       setType(event.target.value);
     };
 
-    const handleSizeChange = (event) => {
+    const handleSizeChange: React.ChangeEventHandler<HTMLInputElement> = (
+      event
+    ) => {
       const { value, checked } = event.target;
       if (checked) {
         setSizes([...sizes, value]);
@@ -107,48 +131,46 @@ const Filters = ({ onSort }) => {
         setSizes(sizes.filter((size) => size !== value));
       }
     };
-    const handleSubmit = async (event) => {
+    const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (
+      event
+    ) => {
       event.preventDefault();
 
       if (!name || !price || !image || !type) {
-        alert('Please add all the fields');
+        alert("Please add all the fields");
         return;
       }
 
-      
-      if (hasSizes) {
-        sizes.forEach((ele) => {
-          let data = {};
-          data.amount = 0;
-          data.color = null;
-        });
-      }
-      
-      let formData = new FormData()
-      formData.append('image', image.data);
+      let formData = new FormData();
+      formData.append("image", image.data);
       const { id: photoID } = await addImage(formData);
 
-      let varieties = [{color: null, amount: 10, purchases: 0, id: photoID, images: [photoID]}];
+      let varieties: Variety[] = [
+        {
+          color: null,
+          amount: 10,
+          purchases: 0,
+          id: photoID,
+          images: [photoID],
+        },
+      ];
       const response = await addItem({
         name,
         price,
         type,
         photoID,
-        varieties
+        varieties,
       });
 
       console.log(response);
-      if (response.status === 'success') {
-        window.alert('Item added successfully!');
+      if (response.status === "success") {
+        window.alert("Item added successfully!");
         window.location.reload();
+      } else {
+        window.alert("Something went wrong: " + response.message);
       }
-      else {
-        window.alert('Something went wrong: ' + response.message);
-      }
-
 
       // console.log(formData);
-
 
       // console.log(imgResponse);
 
@@ -159,15 +181,16 @@ const Filters = ({ onSort }) => {
       //   window.alert('Something went wrong: ' + imgResponse.message);
       // }
 
-      setName('');
+      setName("");
       setImage(null);
-      setPrice('');
-      setType('');
+      setPrice("");
+      setType("");
       setSizes([]);
       props.onHide();
-
     };
-    const handleHasSizesChange = (event) => {
+    const handleHasSizesChange: React.ChangeEventHandler<HTMLInputElement> = (
+      event
+    ) => {
       setHasSizes(event.target.checked);
       if (!event.target.checked) {
         setSizes([]);
@@ -175,7 +198,12 @@ const Filters = ({ onSort }) => {
     };
 
     return (
-      <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
+      <Modal
+        {...props}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">Add Item</Modal.Title>
         </Modal.Header>
@@ -183,19 +211,37 @@ const Filters = ({ onSort }) => {
           <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Name:</Form.Label>
-              <Form.Control type="text" placeholder="Enter name" value={name} onChange={handleNameChange} />
+              <Form.Control
+                type="text"
+                placeholder="Enter name"
+                value={name}
+                onChange={handleNameChange}
+              />
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput2">
               <Form.Label>Image:</Form.Label>
-              <Form.Control type="file" name="image" onChange={handleImageChange} />
+              <Form.Control
+                type="file"
+                name="image"
+                onChange={handleImageChange}
+              />
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput3">
               <Form.Label>Price:</Form.Label>
-              <Form.Control type="text" placeholder="Enter price" value={price} onChange={handlePriceChange} />
+              <Form.Control
+                type="text"
+                placeholder="Enter price"
+                value={price}
+                onChange={handlePriceChange}
+              />
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput4">
               <Form.Label>Type:</Form.Label>
-              <Form.Select aria-label="Default select example" value={type} onChange={handleTypeChange}>
+              <Form.Select
+                aria-label="Default select example"
+                value={type}
+                onChange={handleTypeChange}
+              >
                 <option>Select type</option>
                 <option value="sweatshirt">sweatshirt</option>
                 <option value="T-shirt">T-shirt</option>
@@ -212,7 +258,7 @@ const Filters = ({ onSort }) => {
                 <option value="T-Shirt">T-Shirt</option>
                 <option value="game">game</option>
                 <option value="service">service</option>
-                <option value={null}>null</option>
+                <option>null</option>
               </Form.Select>
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput4">
@@ -230,35 +276,35 @@ const Filters = ({ onSort }) => {
                       type="checkbox"
                       label="XS"
                       value="XS"
-                      checked={sizes.includes('XS')}
+                      checked={sizes.includes("XS")}
                       onChange={handleSizeChange}
                     />
                     <Form.Check
                       type="checkbox"
                       label="S"
                       value="S"
-                      checked={sizes.includes('S')}
+                      checked={sizes.includes("S")}
                       onChange={handleSizeChange}
                     />
                     <Form.Check
                       type="checkbox"
                       label="M"
                       value="M"
-                      checked={sizes.includes('M')}
+                      checked={sizes.includes("M")}
                       onChange={handleSizeChange}
                     />
                     <Form.Check
                       type="checkbox"
                       label="L"
                       value="L"
-                      checked={sizes.includes('L')}
+                      checked={sizes.includes("L")}
                       onChange={handleSizeChange}
                     />
                     <Form.Check
                       type="checkbox"
                       label="XL"
                       value="XL"
-                      checked={sizes.includes('XL')}
+                      checked={sizes.includes("XL")}
                       onChange={handleSizeChange}
                     />
                   </div>
@@ -279,22 +325,21 @@ const Filters = ({ onSort }) => {
     );
   };
 
-
   return (
     <div className="sidebar">
       <h2>Filters</h2>
 
       <h3>Sort</h3>
-      <ul className='radio-buttons'>
+      <ul className="radio-buttons">
         <li>
           <label>
             <input
               type="radio"
               name="datefilter"
               value="Newest First"
-              checked={sortOption === 'Newest First'}
+              checked={sortOption === "Newest First"}
               onChange={handleSortOptionChange}
-            />{' '}
+            />{" "}
             Newest First
           </label>
         </li>
@@ -304,9 +349,9 @@ const Filters = ({ onSort }) => {
               type="radio"
               name="datefilter"
               value="Newest Last"
-              checked={sortOption === 'Newest Last'}
+              checked={sortOption === "Newest Last"}
               onChange={handleSortOptionChange}
-            />{' '}
+            />{" "}
             Newest Last
           </label>
         </li>
@@ -316,9 +361,9 @@ const Filters = ({ onSort }) => {
               type="radio"
               name="datefilter"
               value="Cheapest First"
-              checked={sortOption === 'Cheapest First'}
+              checked={sortOption === "Cheapest First"}
               onChange={handleSortOptionChange}
-            />{' '}
+            />{" "}
             Cheapest First
           </label>
         </li>
@@ -328,9 +373,9 @@ const Filters = ({ onSort }) => {
               type="radio"
               name="datefilter"
               value="Cheapest Last"
-              checked={sortOption === 'Cheapest Last'}
+              checked={sortOption === "Cheapest Last"}
               onChange={handleSortOptionChange}
-            />{' '}
+            />{" "}
             Cheapest Last
           </label>
         </li>
@@ -338,13 +383,21 @@ const Filters = ({ onSort }) => {
 
       <h3>Price Range</h3>
       <div className="price-range">
-        <select name="min-price" value={minPrice} onChange={handleMinPriceChange}>
+        <select
+          name="min-price"
+          value={minPrice}
+          onChange={handleMinPriceChange}
+        >
           <option value="0">Min</option>
           <option value="500">500</option>
           <option value="1000">1000</option>
           <option value="2000">2000</option>
         </select>
-        <select name="max-price" value={maxPrice} onChange={handleMaxPriceChange}>
+        <select
+          name="max-price"
+          value={maxPrice}
+          onChange={handleMaxPriceChange}
+        >
           <option value="100000000">Max</option>
           <option value="500">500</option>
           <option value="1000">1000</option>
@@ -356,14 +409,13 @@ const Filters = ({ onSort }) => {
       {isAdmin && (
         <div>
           <h2>Admin</h2>
-          <button onClick={handleAdminButtonClick} className='add-item-btn'>Add item</button>
+          <button onClick={handleAdminButtonClick} className="add-item-btn">
+            Add item
+          </button>
         </div>
       )}
       {showModal && (
-        <MyVerticallyCenteredModal
-          show={showModal}
-          onHide={handleModalClose}
-        />
+        <MyVerticallyCenteredModal show={showModal} onHide={handleModalClose} />
       )}
     </div>
   );

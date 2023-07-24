@@ -1,16 +1,18 @@
 import "./../../assets/css/storepage.css"
 
 import Header from "../Header/Header";
-import Hero_Banner from "./Hero-Banner";
-import NavBar from "./../NavBar/NavBar";
-import Product_area from "./Product-area";
+import HeroBanner from "./HeroBanner";
+import NavBar from "../NavBar/NavBar";
+import ProductArea from "./ProductArea";
 import Footer from "../Footer/Footer";
 import PersonalizedHeader from "../Header/PersonalizedHeader";
 import { useEffect, useState } from "react";
 import axios from 'axios';
+import React from "react";
+import { Product } from "./Product";
 
 const StorePage = () => {
-    const [products, setProducts] = useState([]);
+    const [products, setProducts] = useState<Product[]>([]);
     const [search, setSearch] = useState('');
     // const [filteredProducts, setFilteredProducts] = useState([]);
     
@@ -30,7 +32,7 @@ const StorePage = () => {
             });
     }, []);
 
-    const handleDelete = (product) => {
+    const handleDelete = (product: Product) => {
         setProducts(products => products.filter(p => p._id !== product._id));
     }
 
@@ -41,11 +43,11 @@ const StorePage = () => {
             <MyHeader onSearch={setSearch} />
             <NavBar />
             <div className="storepage-aligner">
-                <Hero_Banner />
+                <HeroBanner />
                 {filteredProducts.length === 0 ? (
                     <p>Your search didn't match any products</p>
                 ) : (
-                    <Product_area products={filteredProducts} onDelete={handleDelete} />
+                    <ProductArea products={filteredProducts} onDelete={handleDelete} />
                 )}
             </div>
             <Footer />
