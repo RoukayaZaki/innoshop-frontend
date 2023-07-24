@@ -28,35 +28,19 @@ const ItemPage = () => {
     }, [id]);
     console.log(item);
     const token = localStorage.getItem('token');
-    if (token === null) {
-        return (
-            <div>
-                <Header />
-                <NavBar />
-                {item ? (
-                    <ItemDisplay prop={item} />
-                ) : (
-                    <ItemLoading />
-                )}
-                <Footer />
-            </div>
-        );
-    }
-    else {
-        return (
-            <div>
-                <PersonalizedHeader />
-                <NavBar />
-                {item ? (
-                    <ItemDisplay prop={item} />
-                ) : (
-                    <ItemLoading />
-                )}
-                <Footer />
-            </div>
-        );
-    }
-
+    const MyHeader = token === null ? Header : PersonalizedHeader;
+    return (
+        <div>
+            <MyHeader />
+            <NavBar />
+            {item ? (
+                <ItemDisplay prop={item} />
+            ) : (
+                <ItemLoading />
+            )}
+            <Footer />
+        </div>
+    );
 }
 
 export default ItemPage;
