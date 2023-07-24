@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 import "./../../assets/css/userprofile.css";
 import profilePicture from './../../assets/avatar.jpg';
 
@@ -6,9 +6,18 @@ import profilePicture from './../../assets/avatar.jpg';
 const UserProfilePage = () => {
 
   const [user, setUserData] = useState({});
+  const [orderedItems, setOrderedItems] = useState([]);
   const tokenString = localStorage.getItem('token');
   const user_id = localStorage.getItem('current_user_id');
   const headers = { 'Authorization': 'Bearer ' + tokenString };
+
+  const getOrderedItems = async () => {
+    console.log(user);
+    const response = await fetch(`http://localhost:3001/api/v1/bookings/getItems/${user_id}`, { headers });
+    const data = await response.json()
+    setOrderedItems(data.products);
+  };
+
 
   useEffect(() => {
     const url = `http://localhost:3001/api/v1/users/${user_id}`;
@@ -23,7 +32,11 @@ const UserProfilePage = () => {
       .catch(error => {
         console.error('Error:', error);
       });
+
+    getOrderedItems();
   }, []);
+
+  console.log(orderedItems);
 
 
   return (
@@ -43,14 +56,16 @@ const UserProfilePage = () => {
       <div className="col-6 left-panel">
         <div className="panel order-history">
           <h2>Order History</h2>
-          <div className= "scrollable-content1">
-          <ul>
-            
-          </ul>
-        </div>
+          <div className="scrollable-content1">
+            <ul>
+              {orderedItems.map((order, index) => (
+                <li key={index}>{order.name} Quantity: {order.quantity}</li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
-      
+
     </div>
   );
 }

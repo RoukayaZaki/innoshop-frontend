@@ -14,7 +14,7 @@ const ItemPage = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`https://innoshop-backend.onrender.com/api/v1/products/${id}`);
+                const response = await fetch(`http://localhost:3001/api/v1/products/${id}`);
                 const jsonData = await response.json();
                 setItem(jsonData);
                 console.log("Here");

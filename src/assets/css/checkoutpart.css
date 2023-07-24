@@ -6,6 +6,7 @@
     display: grid;
     /* Use grid layout */
     grid-template-columns: 2fr 1fr;
+    margin-bottom: 20px;
     /* Two columns of equal width */
     grid-gap: 70px;
 }
