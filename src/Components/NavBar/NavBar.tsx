@@ -1,3 +1,4 @@
+import { useState } from "react";
 import "./../../assets/css/navbar.css";
 import { useLocation } from "react-router-dom";
 import React from "react";
@@ -8,7 +9,7 @@ export default function NavBar() {
   const breadcrumbs = pathname.replace(/(^\/|\/$)/g, "").split("/");
   console.log("Breadcrumbs:", breadcrumbs);
 
-  if (breadcrumbs[0] === "product") {
+  if (breadcrumbs[0] == "product") {
     breadcrumbs.pop();
   }
 

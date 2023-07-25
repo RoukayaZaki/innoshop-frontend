@@ -1,7 +1,16 @@
 .about {
+  text-align: center;
+  width: 1200px;
+  margin: 20px auto;
+  height: 700px;
   display: flex;
   flex-direction: column;
-  min-height: 500px;
-  justify-content: center;
-  align-items: center;
+  gap: 200px;
+}
+.about h1 {
+  font-size: 50px;
+}
+.about p {
+  font-size: 20px;
+  line-height: 2;
 }

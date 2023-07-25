@@ -17,8 +17,9 @@
   font-family: "Abel", sans-serif;
   font-weight: normal;
 }
-h1 {
+h1{
   color: #003459;
+
 }
 
 h2 {
@@ -31,6 +32,7 @@ h3 {
   margin-top: 20px;
   font-size: 16px;
   color: #003459;
+
 }
 
 ul {
@@ -52,26 +54,26 @@ li {
   color: #003459;
   font-size: 16px;
   font-weight: 500;
-  padding: 8px 8px;
+  padding:8px 8px;
   border: 1px solid #003459;
   background-color: #003459;
   border-radius: 10px;
   color: #ffffff;
 }
-.radio-buttons {
+.radio-buttons{
   padding: 0 0 0 16px;
 }
-.radio-buttons label {
+.radio-buttons label{
   font-weight: 500;
   font-size: 20px;
   color: #003459;
 }
-.radio-buttons input {
-  accent-color: #003459;
+.radio-buttons input{
+  accent-color:#003459 ;
   width: 25px;
   margin-left: 0;
 }
-select * {
+select *{
   margin: 10px 0 0 0 0;
   border: 0;
 

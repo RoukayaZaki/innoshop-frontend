@@ -1,10 +1,9 @@
 .verdict {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin: 50px;
-  margin-bottom: 140px;
-  min-height: 350px;
-  color: #003459;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 50px;
+    margin-bottom: 140px;
+    color: #003459;
 }

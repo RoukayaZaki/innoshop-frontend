@@ -93,7 +93,7 @@ const SignInPage = () => {
       // profile page
       console.log(response);
       localStorage.setItem("current_user_id", response.data.user._id);
-      navigate("/profile");
+      navigate("/");
     } else {
       window.alert(
         <div className="alert">
@@ -149,7 +149,7 @@ const SignInPage = () => {
       // setting user details in local storage so that can be accessible on
       // profile page
       localStorage.setItem("current_user_id", response.data.user._id);
-      navigate("/profile");
+      navigate("/");
     } else {
       window.alert(
         <div className="alert">

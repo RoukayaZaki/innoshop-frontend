@@ -9,6 +9,8 @@ import Success from "./Components/Verdict/Success";
 import Fail from "./Components/Verdict/Fail";
 import Home from "./Components/Home/Home";
 import About from "./Components/About/About";
+import "bootstrap";
+
 function App() {
   return React.createElement(
     Router,

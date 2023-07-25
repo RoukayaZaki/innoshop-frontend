@@ -10,7 +10,7 @@ function PurchaseCard({ item, onQuantityChange }: any) {
       setItemQuantity((value: number) => value - 1);
       onQuantityChange(item._id, item.size, itemQuantity - 1); // Notify parent component
     }
-    if (itemQuantity === 0) {
+    if (itemQuantity == 0) {
       onQuantityChange(item._id, item.size, itemQuantity);
       return null;
     }

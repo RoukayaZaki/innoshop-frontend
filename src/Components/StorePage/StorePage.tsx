@@ -1,5 +1,4 @@
 import "./../../assets/css/storepage.css";
-
 import Header from "../Header/Header";
 import HeroBanner from "./HeroBanner";
 import NavBar from "../NavBar/NavBar";

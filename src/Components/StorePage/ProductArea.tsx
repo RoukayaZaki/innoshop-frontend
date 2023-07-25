@@ -67,8 +67,8 @@ const ProductArea = ({
 
   return (
     <div className="product-container" style={{ margin: "30px 0px" }}>
-      <div className="row">
-        <div className="col-3">
+      <div className="row col-12">
+        <div className="grid col-3">
           <Filters
             onSort={(sortOption: any, minPrice: any, maxPrice: any) =>
               setSelectedFilters({ sortOption, minPrice, maxPrice })

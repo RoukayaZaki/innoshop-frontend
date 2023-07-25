@@ -1,155 +1,156 @@
 .sign-in-page {
-  display: flex;
-  height: 100vh;
+    display: flex;
+    height: 100vh;
 }
 
 .left-half {
-  flex: 1;
-  background-image: url("./../innou-logo\ 3.png");
-  background-size: cover;
-  background-position: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    flex: 1;
+    background-image: url('./../innou-logo\ 3.png');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .right-half {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .nav-container {
-  position: fixed;
-  top: 190px;
-
-  background-color: #fff;
-  display: flex;
-  justify-content: center;
-  z-index: 1;
+    position: fixed;
+    top: 190px;
+    
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    z-index: 1;
 }
 
 .title-container {
-  display: flex;
+    display: flex;
 }
 .form-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  flex-grow: 1; /* Take remaining vertical space */
-  margin-bottom: 20px; /* Add some margin at the bottom */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1; /* Take remaining vertical space */
+    margin-bottom: 20px; /* Add some margin at the bottom */
 }
 
 .title {
-  padding: 10px 20px;
-  cursor: pointer;
-  font-size: 18px;
-  font-weight: bold;
-  color: #555;
-  background-color: #fff;
-  border-radius: 5px;
-  margin: 0 5px;
-  border-bottom: 2px solid transparent;
-  transition: border-color 0.3s ease-in-out;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    color: #555;
+    background-color: #fff;
+    border-radius: 5px;
+    margin: 0 5px;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.3s ease-in-out;
 }
 
 .title.selected {
-  color: #000;
-  border-color: #026d13;
+    color: #000;
+    border-color: #026D13;
 }
 
 .form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 60%;
-  margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 60%;
+    margin-top: 40px;
 }
 
 .form-field {
-  opacity: 1;
-  height: auto;
-  transition: opacity 0.3s ease-in-out, height 0.3s ease-in-out;
+    opacity: 1;
+    height: auto;
+    transition: opacity 0.3s ease-in-out, height 0.3s ease-in-out;
 }
 
 .input-field {
-  margin-bottom: 10px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 14px;
-  width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    width: 100%;
 }
 
 .form-field {
-  transition: opacity 1s ease-in-out, height 1s ease-in-out;
-  opacity: 1;
-  height: auto;
-  width: 350px;
+    transition: opacity 1s ease-in-out, height 1s ease-in-out;
+    opacity: 1;
+    height: auto;
+    width: 350px;
 }
 
 .form-field.hidden {
-  opacity: 0;
-  height: 0;
-  overflow: hidden;
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
 }
 
 .form-field.animated {
-  animation: slideIn 0.7s ease-in-out forwards;
+    animation: slideIn 0.7s ease-in-out forwards;
 }
 .form-field.reverse-animated {
-  animation: slideOut 0.7s ease-in-out forwards;
+    animation: slideOut 0.7s ease-in-out forwards;
 }
 
 @keyframes slideOut {
-  from {
-    transform: translateY(0);
-  }
+    from {
+        transform: translateY(0);
+    }
 
-  to {
-    transform: translateY(-10px);
-  }
+    to {
+        transform: translateY(-10px);
+    }
 }
 
 @keyframes slideIn {
-  from {
-    transform: translateY(-10px);
-  }
+    from {
+        transform: translateY(-10px);
+    }
 
-  to {
-    transform: translateY(0);
-  }
+    to {
+        transform: translateY(0);
+    }
 }
 
 .form-button {
-  padding: 10px;
-  background-color: #026d13;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: bold;
-  width: 350px;
-  text-align: center;
-  position: fixed;
-  bottom: 220px;
+    padding: 10px;
+    background-color: #026D13;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    width: 350px;
+    text-align: center;
+    position: fixed;
+    bottom: 220px;
+
 }
 
 .form-button:hover {
-  background-color: #40ba21;
+    background-color: #40BA21;
 }
 
 .sign-in-page p {
-  margin-top: 20px;
-  font-size: 14px;
+    margin-top: 20px;
+    font-size: 14px;
 }
 
 .sign-in-page p .toggle-mode {
-  color: #007bff;
-  cursor: pointer;
-  font-weight: bold;
+    color: #007bff;
+    cursor: pointer;
+    font-weight: bold;
 }

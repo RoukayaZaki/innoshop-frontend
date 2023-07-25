@@ -1,37 +1,39 @@
 .copywrite {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-right: 0;
-  margin-right: 0;
-  background-color: #40ba21;
-  padding: 20px 0;
-  padding-left: 120px;
-  padding-right: 120px;
-  color: #fff;
-  margin-top: 0;
-  padding-top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 0;
+    margin-right: 0;
+    background-color: #40BA21;
+    padding: 20px 0;
+    padding-left: 120px;
+    padding-right: 120px;
+    color: #fff;
+    margin-top: 0;
+    padding-top: 0;
+    
 }
 .copywrite nav ul {
-  display: flex;
-  list-style: none;
-  padding: 0;
-  border-bottom: none;
-  padding-bottom: none;
-  margin-bottom: none;
+    display: flex;
+    list-style: none;
+    padding: 0;
+    border-bottom: none;
+    padding-bottom: none;
+    margin-bottom: none;
 }
 .copywrite nav li {
-  margin-right: 30px;
+    margin-right: 30px;
+    
 }
 .copywrite nav li:last-child {
-  margin-right: 0; /* Remove the margin from the last item */
-}
+    margin-right: 0; /* Remove the margin from the last item */
+  }
 
 .copywrite nav a {
-  text-decoration: none;
-  color: white;
-  font-size: 16px;
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
 }
 .whitelogo {
-  margin-left: 10px; /* Add spacing between the logo and the text */
+    margin-left: 10px; /* Add spacing between the logo and the text */
 }
