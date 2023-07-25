@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Filters from "./Filters";
+import Filters from "./Filter";
 import Products from "./Products";
 import "./../../assets/css/product-area.css";
 import { Product } from "./Product";
@@ -70,7 +70,7 @@ const ProductArea = ({
       <div className="row">
         <div className="col-3">
           <Filters
-            onSort={(sortOption, minPrice, maxPrice) =>
+            onSort={(sortOption: any, minPrice: any, maxPrice: any) =>
               setSelectedFilters({ sortOption, minPrice, maxPrice })
             }
           />

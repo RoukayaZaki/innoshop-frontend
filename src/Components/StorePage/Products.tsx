@@ -18,13 +18,13 @@ async function deleteItem(id: string) {
   });
 }
 
-const ProductComponent = ({
+function ProductComponent({
   product,
   onDelete,
 }: {
   product: Product;
   onDelete: (p: Product) => void;
-}) => {
+}) {
   const imgStr = `http://localhost:3001/${product.varieties[0].images[0]}`;
 
   const [isAdmin, setIsAdmin] = useState(false);
@@ -76,7 +76,7 @@ const ProductComponent = ({
       </Card>
     </div>
   );
-};
+}
 
 const Products = ({
   products,

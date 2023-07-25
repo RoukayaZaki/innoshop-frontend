@@ -1,5 +1,5 @@
-
 export interface Variety {
+  size?: any;
   id: number;
   amount: number;
   images: number[];
@@ -14,4 +14,3 @@ export interface Product {
   varieties: Variety[];
   addition_time?: number;
 }
-

@@ -1,0 +1,43 @@
+/* Styles for the header and banner */
+.header-home {
+  display: flex;
+  height: 500px;
+  flex: 1;
+  border-radius: 25px;
+}
+
+.home h2 {
+  color: #003459;
+  padding-left: 150px;
+}
+
+.card-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.card {
+  margin: 10px;
+  width: 300px;
+  border-radius: 10px;
+  background-color: #f0f0f0;
+  color: #003459;
+  border: none;
+}
+
+.card-header {
+  background-color: #003459;
+  color: white;
+  font-weight: bold;
+  border-radius: 10px 10px 0 0;
+}
+
+.card-title {
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.card-body {
+  padding: 20px;
+}

@@ -1,93 +1,91 @@
 .item-container {
-    display: flex;
+  display: flex;
 
-    margin-left: 150px;
-    margin-right: 150px;
-    border: 1px solid #EBEEEF;
-    border-radius: 25px;
-    padding: 20px;
-    padding-bottom: 30px;
-    padding-top: 30px;
-    margin-bottom: 30px;
+  margin-left: 150px;
+  margin-right: 150px;
+  border: 1px solid #ebeeef;
+  border-radius: 25px;
+  padding: 20px;
+  padding-bottom: 30px;
+  padding-top: 30px;
+  margin-bottom: 30px;
 }
 
-
 .item-image img {
-    width: 100%;
-    max-height: 400px;
-    object-fit: cover;
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
 }
 
 .faded {
-    opacity: 0.5;
-    /* Adjust the opacity value as desired */
+  opacity: 0.5;
+  /* Adjust the opacity value as desired */
 }
 
 .size-checklist label {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .size-checklist input[type="radio"] {
-    margin-right: 5px;
-    /* Adjust the margin value as desired */
+  margin-right: 5px;
+  /* Adjust the margin value as desired */
 }
 
 .image-gallery {
-    display: flex;
-    margin-top: 10px;
+  display: flex;
+  margin-top: 10px;
 }
 
 .image-gallery img {
-    border-radius: 7px;
-    width: 80px;
-    height: 80px;
-    object-fit: cover;
-    margin-right: 10px;
+  border-radius: 7px;
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  margin-right: 10px;
 }
 
 .item-details {
-    flex: 1;
-    margin-left: 70px;
-    margin-top: 30px;
-    font-family: "Abel", sans-serif;
+  flex: 1;
+  margin-left: 70px;
+  margin-top: 30px;
+  font-family: "Abel", sans-serif;
 }
 
 .item-details p {
-    margin-top: 10px;
-    font-size: 18px;
+  margin-top: 10px;
+  font-size: 18px;
 }
 
 .item-details h3 {
-    color: #003459;
+  color: #003459;
 }
 
 .item-details button {
-    background: #003459;
-    border: none;
-    color: white;
-    padding: 9px 15px;
-    display: inline-block;
-    font-size: 16px;
-    border-radius: 25px;
-
+  background: #003459;
+  border: none;
+  color: white;
+  padding: 9px 15px;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 25px;
 }
 
 .size-checklist {
-    margin-top: 40px;
+  margin-top: 40px;
 }
 
 .size-checklist h3 {
-    font-size: 16px;
-    margin-bottom: 10px;
+  font-size: 16px;
+  margin-bottom: 10px;
 }
 
 .size-checklist label {
-    display: block;
-    margin-bottom: 5px;
+  display: block;
+  margin-bottom: 5px;
 }
 
 .size-checklist input[type="checkbox"] {
-    margin-right: 10px;
-    border: 1px solid #EBEEEF;
+  margin-right: 10px;
+  border: 1px solid #ebeeef;
 }
