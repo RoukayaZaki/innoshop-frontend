@@ -1,11 +1,24 @@
-import './../../assets/css/total.css'
-const stripe = window.Stripe('pk_test_51NTseVBs4LhvVl6aQ4WegsWn7JZemK6TCc0cCioNd4HcR1Ie39u5ER3CCrnctGrjZnwIiG0dT4nIWy3djRGWgTnK00r1qokY5v');
+import React from 'react';
+import './../../assets/css/total.css';
+const stripe = (window as any).Stripe('pk_test_51NTseVBs4LhvVl6aQ4WegsWn7JZemK6TCc0cCioNd4HcR1Ie39u5ER3CCrnctGrjZnwIiG0dT4nIWy3djRGWgTnK00r1qokY5v');
 
-const Total = ({ total , checkout }) => {
+interface CheckoutItem {
+    _id: string;
+    name: string;
+    size: string;
+    quantity: number;
+}
+
+interface TotalProps {
+    total: number;
+    checkout: CheckoutItem[];
+}
+
+const Total: React.FC<TotalProps> = ({ total, checkout }) => {
     const addToCart = async () => {
-        let ids = [];
-        let names = [];
-        let quantities = [];
+        let ids: string[] = [];
+        let names: string[] = [];
+        let quantities: number[] = [];
 
         for (let i = 0; i < checkout.length; i++) {
             ids.push(checkout[i]._id);
@@ -14,8 +27,10 @@ const Total = ({ total , checkout }) => {
         }
         console.log(ids);
         const body = {
-            ids, names, quantities
-        }
+            ids,
+            names,
+            quantities
+        };
 
         try {
             const session = await fetch('http://localhost:3001/api/v1/bookings/checkout-session', {
@@ -26,21 +41,18 @@ const Total = ({ total , checkout }) => {
                 },
                 body: JSON.stringify(body)
             })
-                .then(data => data.json());
+                .then((data) => data.json());
 
             console.log(session);
-
 
             await stripe.redirectToCheckout({
                 sessionId: session.session.id
             });
-        }
-        catch(err) {
+        } catch (err) {
             console.log(err);
             window.alert(err);
         }
-        
-    }
+    };
 
     return (
         <div className="total">
@@ -63,6 +75,6 @@ const Total = ({ total , checkout }) => {
             <button onClick={addToCart}>c h e c k o u t</button>
         </div>
     );
-}
+};
 
 export default Total;
