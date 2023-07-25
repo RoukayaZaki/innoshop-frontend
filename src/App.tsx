@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ItemPage from "./Components/ItemPage/ItemPage";
 import PurchasePage from "./Components/PurchasePage/PurchasePage";

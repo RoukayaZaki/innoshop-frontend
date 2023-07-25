@@ -13,7 +13,10 @@ export default function Footer() {
               <a href="/">Home</a>
             </li>
             <li>
-              <a href="/about">Products</a>
+              <a href="/store">Products</a>
+            </li>
+            <li>
+              <a href="/about">About</a>
             </li>
             <li className="social-icons">
               <a href="https://twitter.com">

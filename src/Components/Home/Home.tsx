@@ -14,11 +14,11 @@ import "./../../assets/css/home.css";
 function Home() {
   const token = localStorage.getItem("token");
   const MyHeader: React.FC = token === null ? Header : PersonalizedHeader;
-  const username: any = localStorage.getItem("name");
+  const username: string = localStorage.getItem("name") || '';
 
   // Conditional greeting message
   // eslint-disable-next-line no-template-curly-in-string
-  const greetingMessage: string | null = username ? "Hello, ${username}" : null;
+  const greetingMessage: string | null = username ? `Hello, ${username}`: null;
 
   return (
     <div className="home">
