@@ -1,5 +1,6 @@
 
 export interface Variety {
+  size: string | null;
   id: number;
   amount: number;
   images: number[];
@@ -8,7 +9,7 @@ export interface Variety {
 }
 
 export interface Product {
-  _id: number;
+  _id: string;
   name: string;
   price: string;
   varieties: Variety[];

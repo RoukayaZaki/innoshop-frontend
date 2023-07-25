@@ -5,7 +5,8 @@ import Form from "react-bootstrap/Form";
 import "./../../assets/css/filters.css";
 import { Variety } from "./Product";
 
-interface Item {
+
+export interface Item {
   name: string;
   price: string;
   type: string;
@@ -152,6 +153,7 @@ const Filters = ({
           purchases: 0,
           id: photoID,
           images: [photoID],
+          size: null
         },
       ];
       const response = await addItem({

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import './../../assets/css/navbar.css'
 import { useLocation } from 'react-router-dom';
+import React from 'react';
 
 const NavBar = () => {
   const { pathname } = useLocation();
@@ -15,7 +16,7 @@ const NavBar = () => {
   /**
    * @param {string} segment 
    */
-  function combinePathUntil(segment) {
+  function combinePathUntil(segment: string) {
     const segmentIdx = breadcrumbs.indexOf(segment);
     const pathUntilSegment = breadcrumbs.slice(0, segmentIdx+1);
     return '/' + pathUntilSegment.join('/');
