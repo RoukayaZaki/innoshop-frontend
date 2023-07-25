@@ -1,11 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, FormEvent } from 'react';
 import './../../assets/css/signin.css'
 import { Link, useNavigate } from 'react-router-dom';
 import Image from "./../../assets/innou-logo 3.png";
 
+interface SigninCredentials {
+    email: string;
+    password: string;
+}
 
+interface SignupCredentials {
+    name: string;
+    email: string;
+    password: string;
+    passwordConfirm: string;
+}
 
-async function signinUser(credentials) {
+async function signinUser(credentials: SigninCredentials) {
     return fetch('http://localhost:3001/api/v1/users/login', {
         method: 'POST',
         headers: {
@@ -14,9 +24,9 @@ async function signinUser(credentials) {
         body: JSON.stringify(credentials)
     })
         .then(data => data.json())
-};
+}
 
-async function signupUser(credentials) {
+async function signupUser(credentials: SignupCredentials) {
     return fetch('http://localhost:3001/api/v1/users/signup', {
         method: 'POST',
         headers: {
@@ -25,21 +35,21 @@ async function signupUser(credentials) {
         body: JSON.stringify(credentials)
     })
         .then(data => data.json())
-};
+}
 
-
-const SignInTitle = ({ selected, onClick }) => (
+const SignInTitle: React.FC<{ selected: boolean; onClick: () => void }> = ({ selected, onClick }) => (
     <div className={`title ${selected ? 'selected' : ''}`} onClick={onClick}>
         Sign In
     </div>
 );
 
-const SignUpTitle = ({ selected, onClick }) => (
+const SignUpTitle: React.FC<{ selected: boolean; onClick: () => void }> = ({ selected, onClick }) => (
     <div className={`title ${selected ? 'selected' : ''}`} onClick={onClick}>
         Sign Up
     </div>
 );
-const SignInPage = () => {
+
+const SignInPage: React.FC = () => {
     const [signInMode, setSignInMode] = useState(true);
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -47,20 +57,20 @@ const SignInPage = () => {
     const [passwordConfirm, setPasswordConfirm] = useState('');
     const getToken = () => {
         const tokenString = localStorage.getItem('token');
-        if (tokenString === undefined) {
+        if (tokenString === null) {
             return '';
         }
         // console.log(tokenString);
-        const userToken = tokenString;
-        return userToken?.token
+        const userToken = JSON.parse(tokenString);
+        return userToken.token as string;
     };
 
     // token for authentication
-    const [token, setToken] = useState(getToken());
+    const [token, setToken] = useState<string>(getToken());
 
-    function saveToken(userToken) {
+    function saveToken(userToken: string) {
         localStorage.setItem('token', userToken);
-        setToken(userToken.token);
+        setToken(userToken);
     };
 
     const navigate = useNavigate();
@@ -74,49 +84,51 @@ const SignInPage = () => {
         setPasswordConfirm('');
     };
 
-    const handleSignIn = async (e) => {
+    const handleSignIn = async (e: FormEvent) => {
         e.preventDefault();
         if (!email || !password) {
             alert('Please fill in all the fields');
             return;
         }
 
-        // Add your sign-up logic here, such as API calls or database storage
+        // Add your sign-in logic here, such as API calls or database storage
         console.log('Sign In:', email, password);
 
-        const response = await signinUser({
-            email,
-            password
-        });
+        try {
+            const response = await signinUser({
+                email,
+                password
+            });
 
-        console.log(response);
-
-        if (response.status === 'success') {
-            saveToken(response.token);
-
-            // setting user details in local storage so that can be accessible on
-            // profile page
             console.log(response);
-            localStorage.setItem('current_user_id', response.data.user._id);
-            navigate('/profile');
+
+            if (response.status === 'success') {
+                saveToken(response.token);
+
+                // setting user details in local storage so that can be accessible on
+                // profile page
+                console.log(response);
+                localStorage.setItem('current_user_id', response.data.user._id);
+                navigate('/profile');
+            }
+            else {
+                window.alert(
+                    <div className="alert">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="stroke-info shrink-0 w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <span>{response.message}</span>
+                    </div>
+                );
+            }
+
+            // Clear form inputs after successful sign-in
+            setEmail('');
+            setPassword('');
+        } catch (error) {
+            console.log('Error during sign-in:', error);
         }
-        else {
-            window.alert(
-                <div className="alert">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="stroke-info shrink-0 w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    <span>{response.message}</span>
-                </div>
-            );
-        }
-
-        // Clear form inputs after successful sign-up
-
-        setEmail('');
-        setPassword('');
-
     };
 
-    const handleSignUp = async (e) => {
+    const handleSignUp = async (e: FormEvent) => {
         e.preventDefault();
         if (!name || !email || !password || !passwordConfirm) {
             alert('Please fill in all the fields');
@@ -131,34 +143,39 @@ const SignInPage = () => {
         }
 
         // Add your sign-up logic here, such as API calls or database storage
-        const response = await signupUser({
-            name,
-            email,
-            password,
-            passwordConfirm
-        });
+        try {
+            const response = await signupUser({
+                name,
+                email,
+                password,
+                passwordConfirm
+            });
 
-        if (response.status === 'success') {
-            saveToken(response.token);
+            if (response.status === 'success') {
+                saveToken(response.token);
 
-            // setting user details in local storage so that can be accessible on
-            // profile page
-            localStorage.setItem('current_user_id', response.data.user._id);
-            navigate('/profile');
+                // setting user details in local storage so that can be accessible on
+                // profile page
+                localStorage.setItem('current_user_id', response.data.user._id);
+                navigate('/profile');
+            }
+            else {
+                window.alert(
+                    <div className="alert">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="stroke-info shrink-0 w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <span>{response.message}</span>
+                    </div>
+                );
+            }
+
+            // Clear form inputs after successful sign-up
+            setName('');
+            setEmail('');
+            setPassword('');
+            setPasswordConfirm('');
+        } catch (error) {
+            console.log('Error during sign-up:', error);
         }
-        else {
-            window.alert(
-                <div className="alert">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="stroke-info shrink-0 w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    <span>{response.message}</span>
-                </div>
-            );
-        }
-
-        setName('');
-        setEmail('');
-        setPassword('');
-        setPasswordConfirm('');
     };
 
     return (
@@ -231,7 +248,6 @@ const SignInPage = () => {
                                     onChange={(e) => setPasswordConfirm(e.target.value)}
                                 />
                             </div>
-
                         </div>
                     )}
                     <button type="button" className="form-button" onClick={signInMode ? handleSignIn : handleSignUp}>
@@ -242,6 +258,5 @@ const SignInPage = () => {
         </div>
     );
 };
-
 
 export default SignInPage;

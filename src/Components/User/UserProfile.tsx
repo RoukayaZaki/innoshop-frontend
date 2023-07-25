@@ -1,12 +1,23 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "./../../assets/css/userprofile.css";
 import profilePicture from './../../assets/avatar.jpg';
 
+interface User {
+  name: string;
+  email: string;
+}
 
-const UserProfilePage = () => {
+interface OrderedItem {
+  name: string;
+  quantity: number;
+}
 
-  const [user, setUserData] = useState({});
-  const [orderedItems, setOrderedItems] = useState([]);
+const UserProfilePage: React.FC = () => {
+  const [user, setUserData] = useState<User>({
+    name: '',
+    email: ''
+  });
+  const [orderedItems, setOrderedItems] = useState<OrderedItem[]>([]);
   const tokenString = localStorage.getItem('token');
   const user_id = localStorage.getItem('current_user_id');
   const headers = { 'Authorization': 'Bearer ' + tokenString };
@@ -14,10 +25,9 @@ const UserProfilePage = () => {
   const getOrderedItems = async () => {
     console.log(user);
     const response = await fetch(`http://localhost:3001/api/v1/bookings/getItems/${user_id}`, { headers });
-    const data = await response.json()
+    const data = await response.json();
     setOrderedItems(data.products);
   };
-
 
   useEffect(() => {
     const url = `http://localhost:3001/api/v1/users/${user_id}`;
@@ -37,7 +47,6 @@ const UserProfilePage = () => {
   }, []);
 
   console.log(orderedItems);
-
 
   return (
     <div className="user-profile">
@@ -65,7 +74,6 @@ const UserProfilePage = () => {
           </div>
         </div>
       </div>
-
     </div>
   );
 }
